@@ -1,0 +1,31 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="member">
+	
+	<insert id="memberjoin" parameterType="MemberVO">
+		INSERT INTO MEMBER(
+							id
+						   ,password
+						   ,email
+						   ) 
+					VALUES(
+						   #{id}
+						  ,#{password}
+						  ,#{email}
+						  )
+	</insert>
+	
+	<select id="idcheck" resultType="MemberVO">
+		SELECT ID 
+		FROM MEMBER 
+		WHERE ID = #{id}
+	</select>
+	
+	<select id="emailcheck" resultType="MemberVO">
+		SELECT ID
+			 , PASSWORD
+			 , EMAIL
+		FROM MEMBER 
+		WHERE EMAIL = #{email}
+	</select>
+</mapper>
