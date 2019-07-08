@@ -1,13 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page session="false"%>
 <c:set var="path" value="${pageContext.request.contextPath}"></c:set>
 <!DOCTYPE html>
 <html>
 <head>
-<!-- <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
-<!-- <script src="//code.jquery.com/jquery-3.2.1.min.js"></script> -->
 <%@ include file="header.jsp"%>
 <link href="/css/join.css" rel="stylesheet">
 <title>회원가입</title>
@@ -17,6 +14,7 @@ var id_check=false;
 var pw_check=false;
 var pw2_check=false;
 var email_check=false;
+
 var exptext = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
 var re = /[~!@\#$%^&*\()\-=+_']/gi;
 
@@ -54,14 +52,14 @@ $(document).ready(function(){
 		
 	})
 	$('.password').change(function(){
-		var password=$(this).val();
-		var password2=$('.password2').val();
-		if(password.length<4){
+		var password = $(this).val();
+		var password2 = $('.password2').val();
+		if(password.length < 4){
 			$('.info').css({'color':'salmon'});
 			$('.info').text("비밀번호는 4자리 이상 입력하셔야 합니다.");
 		}else{
-			if(password!=password2){
-				if(password2!=null||password2!="")
+			if(password != password2){
+				if(password2 != null || password2 !="")
 				{
 					$('.info').css({'color':'salmon'});
 						$('.info').text("비밀번호가 서로 다릅니다.");
@@ -72,38 +70,37 @@ $(document).ready(function(){
 				$('.info').css({'color':'yellowgreen'});
 				$('.info').text("사용하셔도 좋은 비밀번호 입니다.");
 				
-				pw_check=true;
-				pw2_check=true;
+				pw_check = true;
+				pw2_check = true;
 			}
-			
 		}
 	});
+	
 	$('.password2').keyup(function(){
-		var password=$('.password').val();
-		var password2=$(this).val();
-		if(password.length<4){
+		var password = $('.password').val();
+		var password2 = $(this).val();
+		if(password.length < 4){
 			$('.info').css({'color':'salmon'});
 			$('.info').text("비밀번호는 4자리 이상 입력하셔야 합니다.");
 		}else{
-			if(password!=password2){
-				if(password!=null||password!="")
+			if(password != password2){
+				if(password != null || password !="")
 				{
 					$('.info').css({'color':'salmon'});
 					$('.info').text("비밀번호가 서로 다릅니다.");
-					pw_check=false;
-					pw2_check=false;
+					pw_check = false;
+					pw2_check = false;
 				}
 			}else{
 				$('.info').css({'color':'yellowgreen'});
 				$('.info').text("비밀번호가 일치합니다.");
-		
-				pw_check=true;
-				pw2_check=true;
+				pw_check = true;
+				pw2_check = true;
 			}
 			
 		}
 	});
-	//이메일 유효성과 유니크여부 체크
+	// email expert & email unique check
 	$('.email').change(function(){
 		var email = $('.email').val();
 		$('.info').text("");
@@ -124,7 +121,6 @@ $(document).ready(function(){
 					}
 				}
 			})
-		
 		}else{
 			$('.info').css({'color':'salmon'});
 			$('.info').text("이메일 형식에 맞춰주세요!");
@@ -134,39 +130,32 @@ $(document).ready(function(){
 	$('#joinBtn').click(function(){
 		if(id_check && pw_check && pw2_check && email_check){
 		var data = $('#joinform').serialize();
-		alert(data);
-		
 		$.ajax({
 			url:'/memberjoin',
 			type:'post',
 			data:data,
 			success:function(result){
 				if(result){
-					alert_call(true,"가입완료!");
-					setTimeout(function(){
-						window.location.href="/";
-					},500)
-					
+					alert_call(true,"가입완료");
+					window.location.href="/";
 				}else{
-					alert_call(false,"가입 도중 문제가 발생했습니다!")
+					alert_call(false,"가입 도중 문제가 발생했습니다")
 						setTimeout(function(){
 							location.reload();
-					},500)			
+					},1000)			
 				}
-				
 			}
 		})
 		}else{
-			if(id_check==false){
-				alert_call(false,"입력하신 아이디에 문제가있습니다.");
-			}else if(pw_check==false||pw_check2==false){
-				alert_call(false,"입력하신 비밀번호에 문제가있습니다.");
+			if(id_check == false){
+				alert_call(false,"아이디를 올바르게 입력해주세요.");
+			}else if(pw_check == false || pw_check2 == false){
+				alert_call(false,"비밀번호를 올바르게 입력해주세요.");
 			}else{
-				alert_call(false,"입력하신 이메일에 문제가있습니다.");
+				alert_call(false,"이메일을 형식에 맞게 입력해주세요.");
 			}
 		}
 	})
-	
 })
 </script>
 <body>
@@ -176,13 +165,13 @@ $(document).ready(function(){
 	</div>
 	<div class="right">
 	<div class="formBox">
-	<form id="joinform">
+	<form id="joinform" name="joinform">
 		<p>ID</p>
 		<input type="text" name="id" class="id" placeholder="사용하고 싶은 ID" maxlength="12">
 		<p>E-mail</p>
 		<input type="email" name="email" class="email" placeholder="ID찾기에 이용됩니다!" maxlength="30">
 		<p>Password</p>
-		<input type="password" name="password" class="password" placeholder="" maxlength="13">
+		<input type="password" name="password" class="password" placeholder="" maxlength="12">
 		</form>
 		<p>Password Check</p>
 		<input type="password" class="password2" placeholder="비밀번호" maxlength="12">

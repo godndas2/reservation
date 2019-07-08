@@ -20,6 +20,16 @@ public class MemberController {
 	@Autowired BCryptPasswordEncoder passwordEncoder;
 	
 	
+	@RequestMapping(value="sessioncheck",method=RequestMethod.POST)
+	public @ResponseBody String sessioncheck(HttpServletRequest req) {
+		HttpSession session=req.getSession(true);
+		if(session.getAttribute("userid") == null) {
+			return "logout";
+		}else {
+			return session.getAttribute("userid").toString();
+		}
+	}
+	
 	@RequestMapping(value="/emailcheck",method = RequestMethod.POST)
 	public @ResponseBody boolean emailcheck(HttpServletRequest req){
 		String email=req.getParameter("email");
@@ -40,8 +50,8 @@ public class MemberController {
 		}
 	}
 	
-	@RequestMapping(value="/checkIdMail",method=RequestMethod.POST)
-	public @ResponseBody String checkIdMail(HttpServletRequest req){
+	@RequestMapping(value="/findId",method=RequestMethod.POST)
+	public @ResponseBody String findId(HttpServletRequest req){
 		String email=req.getParameter("email");
 		memberVO = memberDao.emailcheck(email);
 
@@ -56,16 +66,15 @@ public class MemberController {
 	@RequestMapping(value="/join",method=RequestMethod.GET)
 	public String join() {return "join";}
 	
-	@Transactional
+//	@Transactional
 	@RequestMapping(value="/memberjoin",method=RequestMethod.POST)
 	public @ResponseBody boolean memberjoin(HttpServletRequest req){
 		String id = req.getParameter("id");
 		String email = req.getParameter("email");
 
-		if(!id.isEmpty()&&!email.isEmpty()) {
-			if(!ObjectUtils.isEmpty(memberDao.idcheck(id))&&!ObjectUtils.isEmpty(memberDao.emailcheck(email))) {
+		if(!id.isEmpty() && !email.isEmpty()) {
+			if(!ObjectUtils.isEmpty(memberDao.idcheck(id)) && !ObjectUtils.isEmpty(memberDao.emailcheck(email))) {
 				return false;
-				
 			}else {
 				String pw = req.getParameter("password");	
 				String encodepw = passwordEncoder.encode(pw);
@@ -74,13 +83,51 @@ public class MemberController {
 				memberVO.setEmail(email);
 				memberVO.setPassword(encodepw);
 				memberDao.memberjoin(memberVO);
-				System.out.println(">>>>>>>>>>>>>>>>" + encodepw);
-				System.out.println("13123113123" + pw);
 				HttpSession session=req.getSession(false);
 				session.setAttribute("userid", id);
 				return true;
 			}
 		}
 		return false;
+	}
+	
+	@RequestMapping(value = "/login",method = RequestMethod.GET)
+	public String login(HttpServletRequest req) {
+		HttpSession session = req.getSession();
+		
+		if(session.getAttribute("userid") != null)
+		{
+			return "logout";
+		}else {
+			return "login";
+		}
+	}
+	
+	@RequestMapping(value="/memberlogin",method=RequestMethod.POST)
+	public @ResponseBody String  memberlogin(HttpServletRequest req){
+		String id=req.getParameter("id");
+		String pw=req.getParameter("password");	
+		
+		memberVO.setId(id);
+		memberVO=memberDao.memberlogin(memberVO);
+		if(!ObjectUtils.isEmpty(memberVO)&&!id.isEmpty()) {
+			if(passwordEncoder.matches(pw, memberVO.getPassword())) {
+				HttpSession session=req.getSession();
+				session.setAttribute("userid",id);		
+				return id;
+			}else {
+				return null;
+			}
+		}
+		return null;
+	}
+	
+	@RequestMapping(value="/memberlogout",method = RequestMethod.GET)
+	public String memberlogout(HttpServletRequest req) {
+		HttpSession session = req.getSession(false);
+		if(session != null) {
+			session.invalidate();
+		}
+		return "logout";
 	}
 }

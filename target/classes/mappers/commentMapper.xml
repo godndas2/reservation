@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="comment">
+
+<insert id="commentinsert">
+	INSERT INTO COMMENT(
+						parent_seq
+					  , writer
+					  , content
+		  			) 
+				VALUES
+		  			(
+					    #{parent_seq}
+					  , #{writer}
+					  , #{content})
+</insert>
+<select id="commentlist" resultType="CommentVO">
+	SELECT * 
+	FROM COMMENT 
+	WHERE PARENT_SEQ = #{parent_seq}
+</select>
+<update id="commentupdate">
+	UPDATE COMMENT 
+	SET CONTENT = #{content}
+				, reg_date=now()
+				, modified="Y" 
+	WHERE COMMENT_SEQ = ${comment_seq}
+</update>
+
+<select id="commentselect" resultType="CommentVO">
+	SELECT * 
+	FROM COMMENT 
+	WHERE COMMENT_SEQ = ${comment_seq}
+</select>
+
+<delete id="commentdelete">
+	DELETE 
+	FROM COMMENT 
+	WHERE COMMENT_SEQ = ${comment_seq}
+</delete>
+</mapper>

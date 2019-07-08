@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="board">
+
+<select id='boardList' resultType="BoardVO" parameterType="int">
+	 SELECT SEQ
+	 	  , TITLE
+	 	  , WRITER
+	 	  , REGDATE
+	 	  , CNT
+	 	  , SECURITY 
+	 FROM BOARD 
+	 ORDER BY SEQ 
+	 DESC LIMIT #{i},10;
+</select>
+<select id='boardSelectRead' resultType="BoardVO">
+	 SELECT * 
+	 FROM BOARD 
+	 WHERE seq = ${seq}
+</select>
+<update id="updateHitCnt" parameterType="BoardVO">
+	UPDATE 
+	BOARD 
+	SET CNT = IFNULL(CNT,0) +1
+	WHERE SEQ = ${seq}
+</update>
+<select id="boardCount" resultType="int">
+	SELECT COUNT(*)
+	FROM BOARD
+</select>
+<insert id='boardInsert' parameterType="BoardVO">
+	INSERT 
+	INTO BOARD(
+			    title
+			  , content
+			  , writer
+			  , cnt
+			  , security
+			  , filepath
+			  ) 
+		VALUES(
+			    #{title}
+			  , #{content}
+			  , #{writer}
+			  , 0
+			  , #{security}
+			  , #{filepath}
+			  )
+</insert>
+<update id='boardUpdate' parameterType="BoardVO">
+	UPDATE 
+	BOARD 
+	SET TITLE = #{title}
+	  , content = #{content}
+	WHERE SEQ = ${seq}
+</update>
+<delete id='boardDelete' parameterType="BoardVO">
+	DELETE FROM BOARD WHERE SEQ = ${seq};
+	DELETE FROM COMMENT WHERE PARENT_SEQ = ${seq}
+</delete>
+<select id="securitycheck" parameterType="BoardVO" resultType="String">
+	SELECT WRITER 
+	FROM BOARD 
+	WHERE SEQ = ${seq} 
+	AND WRITER = #{writer}
+</select>
+</mapper>

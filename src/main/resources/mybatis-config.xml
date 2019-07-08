@@ -6,9 +6,9 @@
 <configuration>
 
 	<typeAliases>
-<!-- 		<typeAlias alias="BoardVO" type="com.hotel.board.BoardVO" /> -->
+		<typeAlias alias="BoardVO" type="com.halfdev.pj.board.BoardVO" />
 		<typeAlias alias="MemberVO" type="com.halfdev.pj.member.MemberVO" />
-<!-- 		<typeAlias alias="CommentVO" type="com.hotel.comment.CommentVO" /> -->
+		<typeAlias alias="CommentVO" type="com.halfdev.pj.comment.CommentVO" />
 <!-- 		<typeAlias alias="RoomVO" type="com.hotel.room.RoomVO" /> -->
 <!-- 		<typeAlias alias="BookVO" type="com.hotel.book.BookVO" /> -->
 	</typeAliases>

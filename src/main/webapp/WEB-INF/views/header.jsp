@@ -2,7 +2,7 @@
 <html>
 <head>
 <!-- ${path} -->
-<link href="${path}/css/header.css" rel="stylesheet">
+<link href="${path}/css/header.css?ver=4" rel="stylesheet">
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <link href="https://fonts.googleapis.com/css?family=Nunito:300i" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300i|Roboto:400,900i" rel="stylesheet">
@@ -103,7 +103,7 @@ function alert_call(result,text){
 })
 </script>
 	<nav class="header">
-		<h1 class="logo" data-text="Reservation Web site">Reservation Web site</h1>
+<!-- 		<h1 class="logo" data-text="Reservation Web site">Reservation Web site</h1> -->
 		<div id="menu-toggle" class="menu-toggle">
 			<div class="one"></div>
 			<div class="two"></div>

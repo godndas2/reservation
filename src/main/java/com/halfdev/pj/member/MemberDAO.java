@@ -15,10 +15,14 @@ public class MemberDAO {
 	}
 	
 	public MemberVO idcheck(String id) {
-		return sqlSession.selectOne("member.idcheck",id);
+		return sqlSession.selectOne("member.idcheck",id);	
 	}
 
 	public MemberVO emailcheck(String email) {
 		return sqlSession.selectOne("member.emailcheck",email);
+	}
+	
+	public MemberVO memberlogin(MemberVO vo) {
+		return sqlSession.selectOne("member.memberlogin",vo);
 	}
 }

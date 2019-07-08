@@ -1,10 +1,6 @@
 package com.halfdev.pj.header;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -16,17 +12,17 @@ public class HeaderController {
 	        return "forward:/resources/fav.ico";
 	    }
 
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String welcome(Model model,HttpServletRequest req) {
-		HttpSession session = req.getSession(false);
-		if(session == null) {
-			req.setAttribute("home",true);
-			return "welcome";
-		}else {
-			return "home";
-		}
-	}
-	@RequestMapping(value="/",method=RequestMethod.POST)
+//	@RequestMapping(value = "/", method = RequestMethod.GET)
+//	public String welcome(Model model,HttpServletRequest req) {
+//		HttpSession session = req.getSession(false);
+//		if(session == null) {
+//			req.setAttribute("home",true);
+//			return "welcome";
+//		}else {
+//			return "home";
+//		}
+//	}
+	@RequestMapping(value="/",method=RequestMethod.GET)
 	public String home() {
 		return "home";
 	}
