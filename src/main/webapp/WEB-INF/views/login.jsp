@@ -6,31 +6,17 @@
 <head>
 <%@ include file="header.jsp"%>
 <link href="${path}/css/login.css?ver=4" rel="stylesheet">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 </head>
 <script>
 $(document).ready(function(){
-	// 아이디찾기 폼 요청
-	$('.help_btn').click(function(){
-		$('.left').css({
-			'transform':'translateX(100%)',
-			'transition':'1s'
-		})
-		setTimeout(function(){
-			$('.help_div').fadeIn('slow');
-		},500)
-				
-	})
-	//로그인 폼 요청
-	$('.right_call').click(function(){
-		$('.left').css({
-			'transform':'translateX(0)',
-			'transition':'1s'
-		})
-		setTimeout(function(){
-			$('.help_div').fadeOut('slow');
-		},500)
-	})
 	
+	// 아이디찾기 요청
+	$('#help_btn').click(function(){
+		$('#email').val('');
+	})
+
 	//아이디 찾기 요청
 	$('.help_submit').click(function(){
 		var email=$('.email').val();
@@ -48,12 +34,12 @@ $(document).ready(function(){
 					}else{
 						$('.id').val(result);
 						alert_call(true,result);
-						$('.right_call').trigger('click');
 					}
 				}
 			})
 		}
 	})
+	// Login
 	$('.login_btn').click(function(){
 		var data=$('#login_form').serialize();
 		$.ajax({
@@ -75,7 +61,6 @@ $(document).ready(function(){
 				setTimeout(function(){
 					location.reload;
 				},1000)
-				
 			}
 		})
 	})
@@ -83,21 +68,8 @@ $(document).ready(function(){
 </script>
 <body>
 <div class="title"><h1>로그인</h1></div>
-<div class="login_div">
-<div class="help_div">
-<form id="help_form">
-		<p>E-mail</p>
-		<input type="email" name="email" class="email" placeholder="E-Mail" maxlength="30">
-</form>
-<h4>이메일을 입력해주세요. 아이디를 찾아드립니다.</h4>
 
-<button class="help_submit">확인</button>
-<a href="#" class="right_call">로그인화면으로 돌아갑니다</a>
-</div>
-	<div class="left">
-
-	</div>
-	<div class="right">
+<div class="right" >
 	<div class="formBox">
 	
 	<form id="login_form">
@@ -106,11 +78,39 @@ $(document).ready(function(){
 		<p>Password</p>
 		<input type="password" name="password" class="password" placeholder="●●●●●●" maxlength="15">
 	</form>
-	
 		<button class="login_btn">로그인</button>
-		<a href="#" class="help_btn">ID 또는 비밀번호를 잊으셨나요?</a>
+		<button type="button" id="help_btn" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">아이디 찾기</button>
 	</div>
+	
+	
+	
+</div>
 
+<div class="login_div">
+	<div class="help_div">
+	 <!-- Modal -->
+		  <div class="modal fade" id="myModal" role="dialog">
+		    <div class="modal-dialog">
+		      <!-- Modal content-->
+		      <div class="modal-content">
+		        <div class="modal-header">
+		          <button type="button" class="close" data-dismiss="modal">&times;</button>
+		          <h4 class="modal-title">아이디 찾기</h4>
+		        </div>
+		        <div class="modal-body">
+			        <form id="help_form">
+						<p>E-mail</p>
+						<input type="email" id="email" name="email" class="email" placeholder="E-Mail" maxlength="30">
+					</form>
+					<button class="help_submit">확인</button>
+		        </div>
+		        <div class="modal-footer">
+		          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		        </div>
+		      </div>
+		      
+		    </div>
+		  </div>
 	</div>
 </div>
 </body>

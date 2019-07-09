@@ -12,16 +12,6 @@ public class HeaderController {
 	        return "forward:/resources/fav.ico";
 	    }
 
-//	@RequestMapping(value = "/", method = RequestMethod.GET)
-//	public String welcome(Model model,HttpServletRequest req) {
-//		HttpSession session = req.getSession(false);
-//		if(session == null) {
-//			req.setAttribute("home",true);
-//			return "welcome";
-//		}else {
-//			return "home";
-//		}
-//	}
 	@RequestMapping(value="/",method=RequestMethod.GET)
 	public String home() {
 		return "home";

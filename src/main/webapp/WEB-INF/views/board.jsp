@@ -80,7 +80,7 @@ function readformcall(){
 				data:{"seq":curseq},
 				datatype:'json',
 				success:function(result){
-					curdocument=result;
+					curdocument = result;
 					$('.read_title').append(result.title);
 					$('.read_info').append('<a>작성자 :'+result.writer+'</a>');
 					$('.read_info').append('<a>날짜 :'+result.regDate+'</a>');
@@ -469,10 +469,10 @@ $(document).ready(function(){
 				$('.board_info2').hide();
 		
 			}
-			
 			writeform(false);
 		}else{
-			alert_call(false,"로그인 후 이용해주세요");
+			alert("로그인 후 이용할 수 있습니다");
+			location.href = 'login';	
 		}
 		
 	})

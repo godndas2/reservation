@@ -391,8 +391,6 @@ $(document).ready(function(){
 </script>
 </head>
 <body>
-<div class="main_div">
-<%-- 		<img src="${path}/img/main.jpg" class="main-img0"> --%>
 <div class="modal">
 <div class="carcurlator">
 <h1>가격표</h1>
@@ -416,22 +414,22 @@ $(document).ready(function(){
 </table>
 
 </div>
-<!-- <div class="btn_box"> -->
-<!-- <button class="room1_btn" id="room1">스텐다드</button> -->
-<!-- <button class="room2_btn" id="room2">슈페리어</button> -->
-<!-- <button class="room3_btn" id="room3">디럭스</button> -->
-<!-- <button class="room3_btn" id="room4">공통시설</button> -->
-<!-- </div> -->
-<!-- <div class="slide_btn"> -->
-<!-- <button class="slide_left">＜</button> -->
-<!-- <button class="slide_right">＞</button> -->
-<!-- </div> -->
-<!-- <div class="slidebox"> -->
-<!-- <div class="blur_box_left"></div> -->
-<!-- <div class="blur_box_right"></div> -->
-<!-- <div class="imgbox"> -->
-<!-- </div> -->
-<!-- </div> -->
+<div class="btn_box">
+<button class="room1_btn" id="room1">스텐다드</button>
+<button class="room2_btn" id="room2">슈페리어</button>
+<button class="room3_btn" id="room3">디럭스</button>
+<button class="room3_btn" id="room4">공통시설</button>
+</div>
+<div class="slide_btn">
+<button class="slide_left">＜</button>
+<button class="slide_right">＞</button>
+</div>
+<div class="slidebox">
+<div class="blur_box_left"></div>
+<div class="blur_box_right"></div>
+<div class="imgbox">
+</div>
+</div>
 <div class="roombox">
 <h1>객실 예약 </h1>
 
@@ -454,7 +452,8 @@ $(document).ready(function(){
   <div class="person2">성인 3~4인</div>
   <div class="person3">성인 5~6인</div>
   <div class="person4">직접입력</div>
- </div>
+	</div>
+  <br><br>
   <button class="room_submit"> 확인 </button>
 
 </div>
@@ -463,9 +462,9 @@ $(document).ready(function(){
 <div class="slider">
 <div class="slider_imgbox"></div>
 </div>
-<!-- <div class="checkout_room"> -->
-<!-- <button class="remaining_btn">잔여객실</button> -->
-<!-- </div> -->
+<div class="checkout_room">
+<button class="remaining_btn">잔여객실</button>
+
 </div>
 
 
