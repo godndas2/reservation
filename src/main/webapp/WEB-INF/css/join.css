@@ -36,13 +36,13 @@ body{
 	border:2px solid #fff;
 	box-shadow:0 15px 40px rgba(0,0,0,.5);
 }
-.left{
-	float:left;
-	width:50%;
-	 height: 56vh;
-	background:url("/resources/bg/pineapple-supply-co-86427-unsplash.jpg");
-	background-size:cover;
-}
+/* .left{ */
+/* 	float:left; */
+/* 	width:50%; */
+/* 	 height: 56vh; */
+/* 	background:url("/resources/bg/pineapple-supply-co-86427-unsplash.jpg"); */
+/* 	background-size:cover; */
+/* } */
 .right
 {
 	float:right;
@@ -61,13 +61,13 @@ body{
 	margin:0;
 	padding:0;
 	font-weight:bold;
-	color:salmon;
+	color:black;
 	font-size:.9vw;
 }
 .formBox input{
 	margin-bottom:2vh;
 	border:none;
-	border-bottom:2px solid salmon;
+	border-bottom:2px solid deepskyblue;
 	outline:none;
 	height:4vh;
 	width:100%;
@@ -112,9 +112,9 @@ body{
    height: 45%;
         margin: 3% auto;
 	}
-	.left{
-		height:100%;
-	}
+/* 	.left{ */
+/* 		height:100%; */
+/* 	} */
 	.right{
 	height:100%;
 	}

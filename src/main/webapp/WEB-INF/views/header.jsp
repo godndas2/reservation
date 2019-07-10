@@ -1,7 +1,6 @@
 <%@page contentType="text/html; charset=utf-8"%>
 <html>
 <head>
-<!-- ${path} -->
 <link href="${path}/css/header.css?ver=4" rel="stylesheet">
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <link href="https://fonts.googleapis.com/css?family=Nunito:300i" rel="stylesheet">
@@ -33,6 +32,7 @@ function alert_call(result,text){
 	alert_close();
 	},1500);
 }
+
 	$(document).ready(function() {
 		$('.alert_close').click(function(){
 			alert_close();
@@ -51,7 +51,6 @@ function alert_call(result,text){
 	 				setTimeout(function(){
 	 					window.location.href="/";
 	 				},1000)
-	 			
 	 			}
 	 			,error:function(){
 	 				alert_call(false,"로그아웃 중 오류발생");
@@ -69,7 +68,7 @@ function alert_call(result,text){
 			success:function(result){
 				console.log(result);
 				if(result!="logout"){
-					sessionid=result;
+					sessionid = result;
 					$('.session_menu1').html('<a href="/mypage" data-text="예약내역">예약내역</a>');
 					$('.session_menu2').html('<a class="logout_btn" data-text="로그아웃">로그아웃</a>');
 				
@@ -103,7 +102,6 @@ function alert_call(result,text){
 })
 </script>
 	<nav class="header">
-<!-- 		<h1 class="logo" data-text="Reservation Web site">Reservation Web site</h1> -->
 		<div id="menu-toggle" class="menu-toggle">
 			<div class="one"></div>
 			<div class="two"></div>
@@ -116,9 +114,8 @@ function alert_call(result,text){
 		<ul class="nav-menu">
 		<li><a href="/" data-text="메인화면">메인화면</a></li>
 		<li><a href="/info" data-text="이용안내">이용안내</a></li>
-		<li><a href="/room" data-text="객실예약">객실예약</a></li>
+<!-- 		<li><a href="/room" data-text="숙소찾기">숙소찾기</a></li> -->
 		<li><a href="/board" data-text="고객센터">고객센터</a></li>
-		<li><h4 style="color: tomato">. . . . . . . . . . . .</h4></li>
 		<li class="session_menu1"></li>
 		<li class="session_menu2"></li>
 		</ul>

@@ -5,20 +5,22 @@
 
 <html>
 <head>
-<%@ include file="header.jsp"%>
-<link href="${path}/css/room.css?ver=20" rel="stylesheet"> 
+<%-- <%@ include file="header.jsp"%> --%>
+<%-- <link href="${path}/css/room.css?ver=20" rel="stylesheet">  --%>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />  
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>  
 <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>  
 <style>
 .ui-datepicker{ font-size: 15px; width: 250px; background:white; }
-.ui-widget-header{background:salmon}
+.ui-widget-header{background:deepskyblue}
 .ui-datepicker-title{color:white}
 .ui-datepicker select.ui-datepicker-month{ width:30%; font-size: 11px; }
 .ui-datepicker select.ui-datepicker-year{ width:40%; font-size: 11px; }
 </style>
+
 <script>
 var room;
+
 $(document).ready(function(){
 	var cur_room="room1";
 	var margin=0;
@@ -34,7 +36,7 @@ $(document).ready(function(){
 		$('.remaining_table tr').append('<th>날짜</th>');
 		$('.remaining_table tr').append('<th>남은객실</th></tr>');
 		if(room[0].roomType=="room1"){
-			type="스텐다드";
+			type="스탠다드";
 		}else if(room[0].roomType=="room2"){
 			type="슈페리어"; 
 		}else{
@@ -53,74 +55,72 @@ $(document).ready(function(){
 	}
 	//계산기 기능
 	function carcur(){
-		
-	var room=$('.room_select').text();
-	var days=staydate();
-	console.log(days);
-	if(days==0)
-		days=1;
-	var person=0;
-	person=person_count();
-		if(room=='스텐다드'){ 
-		$('.stay_person').text("숙박인원 : "+person+"인");
-		$('.stay_room').text("스텐다드 룸 :"+Math.ceil(person/2)+"개");
-		$('.stay_date').text("머무는기간 : "+days+"일");
-		$('.stay_pay').text("가격은 총 "+Math.ceil(person/2)*10*days+"만원 입니다.");
-		$('.stay_pay').append("<br/><h4>이대로 결제하시겠어요?</h4>");
-		
-		}else if(room=='슈페리어'){
-			if(person<4)
-				person=4;
-			$('.stay_person').text(person+"명이 이용하신다면");
-			$('.stay_room').text("슈페리어 (최대 4인 숙박)="+Math.ceil(person/4)+"개 가 필요하고");
-			$('.stay_date').text(days+"일 동안 머무신다면");
-			$('.stay_cal').text('방'+Math.ceil(person/4)+'개 x 19만원'+' x '+days+'일');
-			$('.stay_pay').text("가격은 총 "+Math.ceil(person/4)*19*days+"만원 입니다.");
+		var room = $('.room_select').text();
+		var days = staydate();
+		console.log(days);
+		if(days == 0)
+			days = 1;
+		var person = 0;
+		person = person_count();
+			if(room == '스탠다드'){ 
+			$('.stay_person').text("숙박인원 : "+person+"인");
+			$('.stay_room').text("스탠다드 룸 :"+Math.ceil(person/2)+"개");
+			$('.stay_date').text("머무는기간 : "+days+"일");
+			$('.stay_pay').text("가격은 총 "+Math.ceil(person/2)*10*days+"만원 입니다.");
+			$('.stay_pay').append("<br/><h4>이대로 결제하시겠어요?</h4>");
 			
-		}else{
-			if(person<8)
-				person=6;
-		
-			$('.stay_person').text(person+"명이 이용하신다면");
-			$('.stay_room').text("디럭스 (최대 8인 숙박)="+Math.ceil(person/8)+"개 가 필요하고");
-			$('.stay_date').text(days+"일 동안 머무신다면");
-			$('.stay_cal').text('방'+Math.ceil(person/8)+'개 x 36만원'+' x '+days+'일');
-			$('.stay_pay').text("가격은 총 "+Math.ceil(person/8)*36*days+"만원 입니다.");
-		
-		}
+			}else if(room == '슈페리어'){
+				if(person < 4)
+					person = 4;
+				$('.stay_person').text(person+"명이 이용하신다면");
+				$('.stay_room').text("슈페리어 (최대 4인 숙박)="+Math.ceil(person/4)+"개 가 필요하고");
+				$('.stay_date').text(days+"일 동안 머무신다면");
+				$('.stay_cal').text('방'+Math.ceil(person/4)+'개 x 19만원'+' x '+days+'일');
+				$('.stay_pay').text("가격은 총 "+Math.ceil(person/4)*19*days+"만원 입니다.");
+				
+			}else{
+				if(person<8)
+					person=6;
+			
+				$('.stay_person').text(person+"명이 이용하신다면");
+				$('.stay_room').text("디럭스 (최대 8인 숙박)="+Math.ceil(person/8)+"개 가 필요하고");
+				$('.stay_date').text(days+"일 동안 머무신다면");
+				$('.stay_cal').text('방'+Math.ceil(person/8)+'개 x 36만원'+' x '+days+'일');
+				$('.stay_pay').text("가격은 총 "+Math.ceil(person/8)*36*days+"만원 입니다.");
+			
+			}
 	}
 	//사람 수 체크 함수
 	function person_count(){
-		var person=$('.person_select').text();
-		if(person=='성인 2인'){
+		var person = $('.person_select').text();
+		if(person == '성인 2인'){
 			return 2;
-		}else if(person=='성인 3~4인'){
+		}else if(person == '성인 3~4인'){
 			return 4;
-		}else if(person=='성인 5~6인'){
+		}else if(person == '성인 5~6인'){
 			return 6;
 		}else{
 			return person;
 		}
 	}
 	function roomsubmit(){
-		if(sessionid==null){
-			alert_call(false,"로그인 후 이용해주세요!");
-			$('.modal').fadeOut('slow');
+		if(sessionid == null){
+			location.href = 'login';
 		}else{
-			var person=0;
+			var person = 0;
 			person=person_count();
 			var needrooms=0;
 			var room=$('.room_select').text();
 			var days=staydate();
-			var book_checkin=$('#checkin_date').val();
-			if(room=='스텐다드'){
-				needrooms=Math.ceil(person/2);
+			var book_checkin = $('#checkin_date').val();
+			if(room == '스탠다드'){
+				needrooms = Math.ceil(person/2);
 				room="room1";
-			}else if(room=='슈페리어'){
-				needrooms=Math.ceil(person/4);
+			}else if(room == '슈페리어'){
+				needrooms = Math.ceil(person/4);
 				room="room2";
 			}else{
-				needrooms=Math.ceil(person/8);
+				needrooms = Math.ceil(person/8);
 				room="room3";
 			}
 			$.ajax({
@@ -128,10 +128,10 @@ $(document).ready(function(){
 				type:'post',
 				data:{'checkin':book_checkin,'stay':days,'roomType':room,'need_rooms':needrooms},
 				success:function(result){
-					if(result=="ok"){
+					if(result == "ok"){
 						book_insert(room,days,book_checkin,person,needrooms);
 					}else{
-						alert_call(false,result+"일의 남은 방이 모자릅니다.");
+						alert_call(false,result+"일의 남은 객실이 부족합니다.");
 					}
 				}
 			})
@@ -139,16 +139,15 @@ $(document).ready(function(){
 	}
 	// 머무르는 기간 함수
 	function staydate(){
-		var checkin_month=$('#checkin_date').val().substring(5,7);
-		var checkin_day=$('#checkin_date').val().substring(8,10);
-		var checkout_month=$('#checkout_date').val().substring(5,7);
-		var checkout_day=$('#checkout_date').val().substring(8,10);
-		var imsi=Number(checkout_day); //형변환 임시변수
-		var leftmargin=0; //슬라이드 마진 변수
+		var checkin_month = $('#checkin_date').val().substring(5,7);
+		var checkin_day = $('#checkin_date').val().substring(8,10);
+		var checkout_month = $('#checkout_date').val().substring(5,7);
+		var checkout_day = $('#checkout_date').val().substring(8,10);
+		var imsi = Number(checkout_day); //형변환 임시변수
+		var leftmargin = 0; //슬라이드 마진 변수
 		
-		
-		if(checkin_month!=checkout_month){
-			if(checkin_month=='01'||checkin_month=='03'){
+		if(checkin_month != checkout_month){
+			if(checkin_month == '01' || checkin_month == '03'){
 				return 31-checkin_day+imsi;
 			}else if(checkin_month=='02'){
 				if($('#checkin_date').val().substring(0,4)%400==0){
@@ -166,8 +165,6 @@ $(document).ready(function(){
 		}else{
 			return checkout_day-checkin_day;
 		}
-		
-		
 	}
 	$('.remaining_div h3').click(function(){
 		$('.remaining_div').fadeOut();
@@ -199,8 +196,8 @@ $(document).ready(function(){
 		$('#'+curimgnum).attr('class','active_img');
 		margin+=50;
 		$('.imgbox').stop().animate({'margin-left':margin+'%'},700);
-		if(curimgnum==0){
-			margin-=25;
+		if(curimgnum == 0){
+			margin -= 25;
 		}
 	
 		}else{
@@ -344,14 +341,25 @@ $(document).ready(function(){
 	
 	// 사람수 직접입력 기능
 	$('#person_input').keyup(function(){
-		if($('#person_input').val()>100){
+		 // 숫자만 입력받는 정규식
+// 		 var regexp = str.replace(/[^0-9]/g,"");
+// 		 for( var i=0; i < text.length; i++){
+// 	            if(text.charAt(i) != " " && regexp.test(text.charAt(i)) == false ){
+// 	             alert(text.charAt(i) + "숫자만 입력가능합니다");
+// 	             break;
+// 	      	}
+// 	     }       
+		$(this).val($(this).val().replace(/[^0-9]/g,""));
+		
+		 if($('#person_input').val()>100){
+			 
 			$('#person_input').val(100);
 		}
 			$('.person_select').text($('#person_input').val());
 		})
 		//룸 선택 시 함수
 		function roomselect(data){
-		slidesw=true;
+		slidesw = true;
 		$('.imgbox').text("");
 		$('.slider').text("");
 		$.ajax({
@@ -360,13 +368,13 @@ $(document).ready(function(){
 			data:{'room':data},
 			dataType:'json',
 			success:function(result){
-				listcnt=result.length;
-				for(var i=0;i<result.length;i++){
+				listcnt = result.length;
+				for(var i = 0;i < result.length; i++){
 					$('.imgbox').append('<img src="${path}/img/'+data+'/'+result[i]+'">');
 					$('.slider').append('<img id="'+i+'" src="${path}/img/'+data+'/'+result[i]+'">');
 				
-					if(i==0){
-						$('#'+curimgnum).attr('class','active_img');
+					if(i == 0){
+						$('#' + curimgnum).attr('class','active_img');
 					}
 				}
 			}
@@ -378,10 +386,10 @@ $(document).ready(function(){
 	//룸 선택 버튼 클릭 함수
 		$('.btn_box button').click(function(){
 			
-			margin=0;
+			margin = 0;
 			$('.imgbox').stop().animate({'margin-left':margin+'%'},500);
-			cur_room=$(this).prop('id');
-			curimgnum=0;
+			cur_room = $(this).prop('id');
+			curimgnum = 0;
 			roomselect(cur_room);
 			$('.remaining_div').fadeOut('slow');
 			
@@ -414,12 +422,14 @@ $(document).ready(function(){
 </table>
 
 </div>
-<div class="btn_box">
-<button class="room1_btn" id="room1">스텐다드</button>
-<button class="room2_btn" id="room2">슈페리어</button>
-<button class="room3_btn" id="room3">디럭스</button>
-<button class="room3_btn" id="room4">공통시설</button>
-</div>
+<!-- <div class="btn_box"> -->
+<!-- 	<button class="room1_btn" id="room1">스탠다드</button> -->
+<!-- 	<button class="room2_btn" id="room2">슈페리어</button> -->
+<!-- 	<button class="room3_btn" id="room3">디럭스</button> -->
+<!-- 	<button class="room3_btn" id="room4">공통시설</button> -->
+<!-- </div> -->
+
+
 <div class="slide_btn">
 <button class="slide_left">＜</button>
 <button class="slide_right">＞</button>
@@ -430,29 +440,40 @@ $(document).ready(function(){
 <div class="imgbox">
 </div>
 </div>
+
+
 <div class="roombox">
 <h1>객실 예약 </h1>
 
-  <p>체크인 </p><input type="text" name="checkin" id="checkin_date" readonly="readonly">
-  <p>체크아웃 </p><input type="text" name="checkout" id="checkout_date" readonly="readonly">
+  <p>체크인 </p><input type="text" name="checkin" id="checkin_date" readonly>
+  <p>체크아웃 </p><input type="text" name="checkout" id="checkout_date" readonly>
+  
   <p>객실 선택</p>
-  <div class="room_select">스텐다드</div>
-  <div class="room_dropbox">
-  <div class="room1">스텐다드</div>
-  <div class="room2">슈페리어</div>
-  <div class="room3">디럭스</div>
-	</div>
+<!--   <select name="room_select" class="room_select"> -->
+<!--     <option class="room1" value="">직업선택</option> -->
+<!--     <option class="room2" value="학생">학생</option> -->
+<!--     <option class="room3" value="회사원">회사원</option> -->
+<!--   </select> -->
+<!--   <div class="room_select">스탠다드</div> -->
+<!-- 	  <div class="room_dropbox"> -->
+<!-- 	  <div class="room1">스탠다드</div> -->
+<!-- 	  <div class="room2">슈페리어</div> -->
+<!-- 	  <div class="room3">디럭스</div> -->
+<!--   </div> -->
+  
+  
+  
     <p>인원 선택</p>
     <div class="toggle_person">
-  	<input type="number" max="100" id="person_input">인
+  		<input type="number" max="100" id="person_input" placeholder="최대 100명까지 가능합니다">명
     </div>
   <div class="person_select">성인 2인</div>
   <div class="person_dropbox">
-  <div class="person1">성인 2인</div>
-  <div class="person2">성인 3~4인</div>
-  <div class="person3">성인 5~6인</div>
-  <div class="person4">직접입력</div>
-	</div>
+	  <div class="person1">성인 2인</div>
+	  <div class="person2">성인 3~4인</div>
+	  <div class="person3">성인 5~6인</div>
+	  <div class="person4">직접입력</div>
+  </div>
   <br><br>
   <button class="room_submit"> 확인 </button>
 

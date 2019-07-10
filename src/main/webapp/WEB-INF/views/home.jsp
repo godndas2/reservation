@@ -12,7 +12,7 @@
 <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>  
 <style>
 .ui-datepicker{ font-size: 15px; width: 250px; background:white; }
-.ui-widget-header{background:salmon}
+.ui-widget-header{background:deepskyblue;}
 .ui-datepicker-title{color:white}
 .ui-datepicker select.ui-datepicker-month{ width:30%; font-size: 11px; }
 .ui-datepicker select.ui-datepicker-year{ width:40%; font-size: 11px; }
@@ -344,6 +344,8 @@ $(document).ready(function(){
 	
 	// 사람수 직접입력 기능
 	$('#person_input').keyup(function(){
+		// 숫자만 입력받는 정규식
+		$(this).val($(this).val().replace(/[^0-9]/g,""));
 		if($('#person_input').val()>100){
 			$('#person_input').val(100);
 		}
@@ -437,28 +439,34 @@ $(document).ready(function(){
 
   <p>체크인 </p><input type="text" name="checkin" id="checkin_date" readonly="readonly">
   <p>체크아웃 </p><input type="text" name="checkout" id="checkout_date" readonly="readonly">
-  <p>객실 선택</p>
-  <div class="room_select">스텐다드</div>
-  <div class="room_dropbox">
-  <div class="room1">스텐다드</div>
-  <div class="room2">슈페리어</div>
-  <div class="room3">디럭스</div>
-	</div>
-    <p>인원 선택</p>
+  <p>객실</p>
+<!--   <div class="room_dropbox"> -->
+<!-- 	  <div class="room1">스텐다드</div> -->
+<!-- 	  <div class="room2">슈페리어</div> -->
+<!-- 	  <div class="room3">디럭스</div> -->
+<!--   </div> -->
+    <p>인원</p>
     <div class="toggle_person">
   	<input type="number" max="100" id="person_input">인
     </div>
-  <div class="person_select">성인 2인</div>
-  <div class="person_dropbox">
-  <div class="person1">성인 2인</div>
-  <div class="person2">성인 3~4인</div>
-  <div class="person3">성인 5~6인</div>
-  <div class="person4">직접입력</div>
- </div>
-  <button class="room_submit"> 확인 </button>
+<!--   <div class="person_select">성인 2인</div> -->
+<!-- 	  <div class="person_dropbox"> -->
+<!-- 		  <div class="person1">성인 2인</div> -->
+<!-- 		  <div class="person2">성인 3~4인</div> -->
+<!-- 		  <div class="person3">성인 5~6인</div> -->
+<!-- 		  <div class="person4">직접입력</div> -->
+<!-- 	 </div> -->
+<!-- </div> -->
 
-</div>
+	<select class="person_select" name="person_select">
+		<option class="person_dropbox" value="">성인 2인</option>
+		<option class="person_dropbox" value="">성인 2인</option>
+		<option class="person_dropbox" value="">성인 2인</option>
+		<option class="person_dropbox" value="">성인 2인</option>
+	</select>
 
+
+  	 <button class="room_submit"> 확인 </button>
 
 <div class="slider">
 <div class="slider_imgbox"></div>

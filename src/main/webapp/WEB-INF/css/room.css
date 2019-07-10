@@ -6,16 +6,16 @@ body {
 }
 .roombox {
 	position: absolute;
-	margin-left: 10;
+	margin-left: 30;
 	margin-top: 10%;
 	display: inline-block;
-	width: 30%;
+	width: 35%;
 	height: 70%;
 	background: white;
-	color: black;
+	color: #00000094;
 /* 	border: 1px solid; */
 	z-index: 100;
-	text-align: center;
+/* 	text-align: left; */
 	border-radius: 10px;
 	box-shadow: 1px 1px 5px grey;
 }
@@ -155,6 +155,16 @@ body {
 	height: 40%;
 }
 
+button.ok {
+	background: green;
+	border: 1px solid green;
+}
+
+button.no {
+	background: red;
+	border: 1px solid red;
+}
+
 .slide_btn button {
 	margin-top: 20%;
 	background: unset;
@@ -227,9 +237,9 @@ body {
 }
 
 .room_submit {
-	width: 80%;
+/* 	width: 80%; */
 /* 	margin-bottom: 7.5%; */
-	bottom: auto;
+/* 	bottom: auto; */
 }
 
 .room_submit:hover {
@@ -245,7 +255,6 @@ body {
 	position: absolute;
 	display: none;
 	height: 100%;
-	background: rgba(0, 0, 0, .9);
 	z-index: 1000;
 }
 
@@ -257,10 +266,6 @@ body {
 	margin-left: 35%;
 	box-shadow: 1px 1px 5px grey;
 	border-radius: 10px;
-}
-
-.carcurlator button {
-	margin-top: 10%;
 }
 
 .carcurlator h1 {
@@ -345,7 +350,7 @@ body {
 		margin-left: 1%;
 	}
 	.roombox {
-		height: 65%;
+		height: 75%;
 	}
 	.checkout_room {
 		margin-left: 1%;
@@ -419,7 +424,7 @@ body {
 		height: 40px;
 	}
 	.roombox {
-		height: 60%;
+		height: 80%;
 		width: 80%;
 		display: block;
 		margin-top: 35%;

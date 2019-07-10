@@ -33,7 +33,7 @@ $(document).ready(function(){
 						alert_call(false,"입력하신 이메일과 일치하는 정보가 없습니다");
 					}else{
 						$('.id').val(result);
-						alert_call(true,result);
+						alert_call(true,"아이디: "+result);
 					}
 				}
 			})
@@ -47,7 +47,7 @@ $(document).ready(function(){
 			type:'post',
 			data:data,
 			success:function(result){
-				if(result.trim()!=''){
+				if(result.trim() != ''){
 					alert_call(true,result+"님 반갑습니다");
 					setTimeout(function(){
 						window.location.href="/";
@@ -68,23 +68,6 @@ $(document).ready(function(){
 </script>
 <body>
 <div class="title"><h1>로그인</h1></div>
-
-<div class="right" >
-	<div class="formBox">
-	
-	<form id="login_form">
-		<p>ID</p>
-		<input type="text" name="id" class="id" placeholder="Your ID" maxlength="15">
-		<p>Password</p>
-		<input type="password" name="password" class="password" placeholder="●●●●●●" maxlength="15">
-	</form>
-		<button class="login_btn">로그인</button>
-		<button type="button" id="help_btn" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">아이디 찾기</button>
-	</div>
-	
-	
-	
-</div>
 
 <div class="login_div">
 	<div class="help_div">
@@ -113,5 +96,20 @@ $(document).ready(function(){
 		  </div>
 	</div>
 </div>
+
+<div class="right" >
+	<div class="formBox">
+	
+	<form id="login_form">
+		<p>ID</p>
+		<input type="text" name="id" class="id" placeholder="아이디" maxlength="15">
+		<p>Password</p>
+		<input type="password" name="password" class="password" placeholder="●●●●●●" maxlength="15">
+	</form>
+		<button class="login_btn">로그인</button>
+		<button type="button" id="help_btn" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">아이디 찾기</button>
+	</div>
+</div>
+
 </body>
 </html>

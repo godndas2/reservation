@@ -34,8 +34,10 @@ public class RoomController {
 	public @ResponseBody List<String> roomselect(HttpServletRequest req) {
 		String room=req.getParameter("room");
 		List<String> imglist = new ArrayList<String>();
+
 		String path = context.getRealPath("/WEB-INF/img/"+room);
 		File dirFile = new File(path);
+		
 		File[] fileList=dirFile.listFiles();
 		for(File tempFile : fileList) {
 			  if(tempFile.isFile()) {

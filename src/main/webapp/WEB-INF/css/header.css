@@ -1,40 +1,4 @@
 @charset "UTF-8";
-@font-face {
-	font-family: 'GyeonggiBatang';
-	src:
-		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/GyeonggiBatang.woff')
-		format('woff');
-	font-weight: normal;
-	font-style: normal;
-}
-
-@font-face {
-	font-family: 'TmonMonsori';
-	src:
-		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/TmonMonsori.woff')
-		format('woff');
-	font-weight: normal;
-	font-style: normal;
-}
-
-@font-face {
-	font-family: 'KBIZHanmaumMyungjo';
-	src:
-		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/KBIZHanmaumMyungjo.woff')
-		format('woff');
-	font-weight: normal;
-	font-style: normal;
-}
-
-@font-face {
-	font-family: 'NanumSquareRound';
-	src:
-		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff')
-		format('woff');
-	font-weight: normal;
-	font-style: normal;
-}
-
 body {
 	margin: 0;
 }
@@ -51,32 +15,8 @@ button {
 }
 
 h1 {
-	font-family: 'KBIZHanmaumMyungjo';
-	font-style: italic;
 	font-weight: 1000;
 	margin-bottom: 0;
-}
-
-h4 {
-	font-family: 'GyeonggiBatang';
-	font-style: italic;
-}
-
-p {
-	font-family: 'GyeonggiBatang';
-}
-
-a {
-	font-family: 'KBIZHanmaumMyungjo';
-	font-style: italic;
-}
-
-.header {
-	width: 100%;
-	background: white;
-	height: 10%;
-	position: fixed;
-	z-index: 1000;
 }
 
 .nav-body {
@@ -86,6 +26,8 @@ a {
 	background: rgb(255, 64, 0);
 	z-index: 999;
 	position: absolute;
+/* 	overflow-y: hidden; */
+/*   	overflow-x: auto; */
 }
 
 .nav-menu {
@@ -101,7 +43,7 @@ a {
 }
 
 .nav-menu a {
-	text-decoration: none;
+	text-decoration: none !important;
 	cursor: pointer;
 	color: salmon;
 	position: relative;
@@ -155,10 +97,6 @@ a {
 	transition: 1s;
 }
 
-video_div video {
-	width: 100vw;
-}
-
 .logo:hover:before {
 	height: 100%;
 }
@@ -178,7 +116,7 @@ video_div video {
 }
 
 #menu-toggle div {
-	background-color: rgb(255, 64, 0);
+	background-color: white;
 	border-radius: 25px;
 	height: 9px;
 	transition-duration: 250ms;
@@ -225,7 +163,7 @@ video_div video {
 
 .alert_fail {
 	display: none;
-	color: tomato;
+	color: red;
 }
 
 .alert_close {
@@ -238,7 +176,7 @@ video_div video {
 }
 
 .alert_left {
-	background-color: tomato;
+	background-color: red;
 	border-radius: 25px;
 	box-shadow: 0px 3px 13px rgba(0, 0, 0, 0.5);
 	height: 9px;
@@ -246,16 +184,13 @@ video_div video {
 }
 
 .alert_right {
-	background-color: tomato;
+	background-color: red;
 	border-radius: 25px;
 	box-shadow: 0px 3px 13px rgba(0, 0, 0, 0.5);
 	height: 9px;
 	transform: rotate(45deg) translate(-7px, -7px);
 	margin-top: 9px;
 }
-
-
-
 
 @media ( max-width :450px) {
 	.logo {
@@ -295,7 +230,7 @@ video_div video {
 		margin-left: 0;
 	}
 	.alert {
-		width: 50%;
+		width: 40%;
 		height: 20%;
 		margin-top: 30%;
 		margin-left: 25%;
