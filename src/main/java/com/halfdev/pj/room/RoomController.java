@@ -32,7 +32,7 @@ public class RoomController {
 
 	@RequestMapping(value = "/roomselect", method = RequestMethod.POST)
 	public @ResponseBody List<String> roomselect(HttpServletRequest req) {
-		String room=req.getParameter("room");
+		String room = req.getParameter("room");
 		List<String> imglist = new ArrayList<String>();
 
 		String path = context.getRealPath("/WEB-INF/img/"+room);
@@ -63,7 +63,7 @@ public class RoomController {
 			max = 93;
 		}
 		roomVO.setRoomType(roomType);
-	     roomVO.setRoomDate(checkin);
+	    roomVO.setRoomDate(checkin);
 		//checkin 날짜에 해당하는 날의 객실 인덱스를 가져옴
 		int seq = roomDao.roomcheck(roomVO).getRoomSeq();
 		//머무는 기간동안 남은 객실 수 체크
@@ -78,7 +78,6 @@ public class RoomController {
 				return roomVO.getRoomDate();		
 			}
 		}
-
 		return "ok";
 	}
 	//매일 정각에 실행 (객실 테이블 인덱스 관리)
@@ -103,20 +102,17 @@ public class RoomController {
 	       
 	       calendar.add(Calendar.DATE,31);
 	       
-	       for(int i=0;i<3;i++) {
+	       for(int i = 0; i <3; i++) {
 	    	   roomVO.setRoomDate(format.format(calendar.getTime()));
 	    	   roomVO.setRoomSeq(seq_list.get(i));
 	    	   roomDao.roomchange(roomVO);
 	       }
-	      
-	      
 	}
 	
 	@RequestMapping(value = "/remainingrooms", method = RequestMethod.POST)
 	public @ResponseBody List<RoomVO> remainingrooms(HttpServletRequest req){
 		List<RoomVO> list=new ArrayList<RoomVO>();
 		list=roomDao.remainingrooms(req.getParameter("room"));
-		
 		return list;
 	}
 	
@@ -126,7 +122,7 @@ public class RoomController {
 	public void room1() {
 
 //		  TimeZone tz = TimeZone.getTimeZone("Asia/Seoul");
-//	       Calendar calendar = Calendar.getInstance(timeZone);
+//	       Calendar calendar = Calendar.getInstance(tz);
 //	       calendar.set(2019, Calendar.FEBRUARY , 7);
 //	       String pattern = "yyyy-MM-dd";
 //	       SimpleDateFormat format = new SimpleDateFormat(pattern);
@@ -144,6 +140,6 @@ public class RoomController {
 //		    	   calendar.set(2019, Calendar.FEBRUARY , 7);
 //		       }
 //		}
-		
+//		
 	}
 }

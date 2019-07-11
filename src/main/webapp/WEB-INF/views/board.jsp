@@ -178,6 +178,7 @@ function pageload(pagenum){
 		data:{'i':pagenum},
 		datatype:'json',
 		success:function(result){
+			alert(result);
 			tableload(result);
 		},
 		error:function(e){
@@ -271,14 +272,14 @@ $(document).ready(function(){
 			data:{'seq':lastdatseq,'content':content,'id':sessionid},
 			success:function(result){
 				if(result){
-					$('.'+lastdatseq).html("<a class='comment_writer'>작성자:"+result.writer+"</a><a class='comment_reg_date'>날짜:"+result.reg_date+"</a> <img class='dat_update_icon' src='${path}/img/icon/edit-16.jpg'>  <img class='dat_delete_icon'src='${path}/img/icon/delete-16.jpg'> <br/><p>"+result.content+"</p>");	
+					// <img class='dat_update_icon' src='${path}/img/icon/edit-16.jpg'>  <img class='dat_delete_icon'src='${path}/img/icon/delete-16.jpg'>
+					$('.'+lastdatseq).html("<a class='comment_writer'>작성자:"+result.writer+"</a><a class='comment_reg_date'>날짜:"+result.reg_date+"</a>  <br/><p>"+result.content+"</p>");	
 					$('.'+lastdatseq+' .comment_reg_date').append("<a class='comment_modified'>수정됨</a> ");
-					lastdatseq=0;
-					datbuffer=null;
+					lastdatseq = 0;
+					datbuffer = null;
 				}else{
 					alert_call(false,"권한이 없습니다.");
 				} 
-				
 			},
 			error:function(){
 				alert_call(false,"댓글 수정 중 문제가 발생했습니다.");
@@ -421,7 +422,7 @@ $(document).ready(function(){
 		$('.header').css({'position':'relative'});
 	
 		$('.tag').css({'margin-left':'20%'});
-		if($('body').prop('class')=='mobile'){
+		if($('body').prop('class') == 'mobile'){
 			$('.board_info').show();
 			$('.board_info2').show();
 			$('.board_content').css({'position':'relative'});
@@ -538,34 +539,35 @@ $(document).ready(function(){
 		})
 		/*댓글 등록*/
 		$(document).on('click','.datgle_btn',function(){
-			
-			if(sessionid!=null){
-				var content=ConvertSystemSourcetoHtml($('.datgle').val());
+			if($('.datgle') == '') {
+				alert_call(false,"댓글을 작성해주세요");
+			}
+			if(sessionid != null){
+				var content = ConvertSystemSourcetoHtml($('.datgle').val());
 				var temp="";
 				
-				if($('body').prop('class')=='mobile'){
-					if(content.length>18){
-						for(var i=0;i<content.length-17;i+=17){	
-							temp+=content.substring(i,i+17)+'<br>';		
+				if($('body').prop('class') == 'mobile'){
+					if(content.length > 18){
+						for(var i = 0; i < content.length-17; i+=17){	
+							temp += content.substring(i,i+17)+'<br>';		
 						}
 						content=temp+content.substring(i,content.length);
 					}
 				}else{
-					if(content.length>40){
-						for(var i=0;i<content.length-39;i+=39){	
+					if(content.length > 40){
+						for(var i = 0; i < content.length-39; i+=39){	
 							temp+=content.substring(i,i+39)+'<br>';		
 						}
 						content=temp+content.substring(i,content.length);
 					}
 				}
 				
-				if(content.trim()!=''&&content!=null||content.length>500){
+				if(content.trim()!='' && content != null || content.length > 500){
 					$.ajax({
 						url:'/commentinsert',
 						type:'post',
 						data:{'content':content,'writer':sessionid,'seq':curseq},
 						success:function(result){
-						
 							$('.datgle').val("");
 							commentlist(result);
 							$('body').animate({scrollTop:lastcomment_top.top},1000);
@@ -576,9 +578,10 @@ $(document).ready(function(){
 					alert_call(false,"댓글 내용에 문제가있습니다!");
 				}
 			}else{
-				alert_call(false,"로그인 후 이용해주세요!");
+				alert_call(false,"로그인 후 이용할 수 있습니다");
 			}
 		})
+		
 		/* 글 수정 기능*/
 	$(document).on('click','.board_update_btn',function(){	
 		if($('.input_title').val().length==0||$('.input_title').val()==""||$('.input_content').val().length==0||$('.input_content').val()==""){

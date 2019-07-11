@@ -4,7 +4,7 @@ body {
 }
 
 button {
-	padding: 10px;
+	padding: 8px;
 	background: salmon;
 	border: 1px solid salmon;
 	font-size: 16px;
@@ -12,6 +12,10 @@ button {
 	color: white;
 	box-shadow: 1px 1px 3px grey;
 	cursor: pointer;
+}
+button.remaining_btn {
+	background: deepskyblue;
+	border: 1px solid deepskyblue;
 }
 
 h1 {
@@ -176,17 +180,13 @@ h1 {
 }
 
 .alert_left {
-	background-color: red;
-	border-radius: 25px;
-	box-shadow: 0px 3px 13px rgba(0, 0, 0, 0.5);
+	background-color: black;
 	height: 9px;
 	transform: rotate(-45deg) translate(-7px, 5px);
 }
 
 .alert_right {
-	background-color: red;
-	border-radius: 25px;
-	box-shadow: 0px 3px 13px rgba(0, 0, 0, 0.5);
+	background-color: black;
 	height: 9px;
 	transform: rotate(45deg) translate(-7px, -7px);
 	margin-top: 9px;

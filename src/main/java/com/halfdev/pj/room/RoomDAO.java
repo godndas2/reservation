@@ -13,6 +13,7 @@ public class RoomDAO {
 	private SqlSession sqlSession;
 	
 	public void roomset(RoomVO rv) {
+		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>roomset");
 		sqlSession.selectOne("room.roomset",rv);
 	}
 	public RoomVO roomcheck(RoomVO rv) {

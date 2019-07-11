@@ -2,11 +2,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page session="false"%>
 <c:set var="path" value="${pageContext.request.contextPath}"></c:set>
-<!DOCTYPE html>
 <html>
 <head>
 <%@ include file="header.jsp"%>
-<link href="/css/join.css" rel="stylesheet">
+<link href="/css/join.css?ver=12" rel="stylesheet">
 <title>회원가입</title>
 </head>
 <script>
@@ -136,7 +135,7 @@ $(document).ready(function(){
 			data:data,
 			success:function(result){
 				if(result){
-					alert_call(true,"가입완료");
+					alert("가입이 완료되었습니다.");
 					window.location.href="/";
 				}else{
 					alert_call(false,"가입 도중 문제가 발생했습니다")
@@ -177,7 +176,7 @@ $(document).ready(function(){
 		<input type="password" class="password2" placeholder="비밀번호" maxlength="12">
 
 		<button type="button" id="joinBtn" class="btn btn-primary btn-lg">회원가입</button>
-		<a href="/login">아이디가 이미 있으신가요?</a>
+		<a href="/login">클릭하면 로그인으로 이동합니다</a>
 		<br/><br/>
 		<p class="info"></p>
 	</div>

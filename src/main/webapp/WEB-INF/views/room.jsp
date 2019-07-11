@@ -357,6 +357,7 @@ $(document).ready(function(){
 		}
 			$('.person_select').text($('#person_input').val());
 		})
+		
 		//룸 선택 시 함수
 		function roomselect(data){
 		slidesw = true;
