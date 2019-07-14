@@ -1,5 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@page contentType="text/html; charset=utf-8"%>
+<%@ page contentType="text/html; charset=utf-8"%>
 <%@ page session="false"%>
 <c:set var="path" value="${pageContext.request.contextPath}"></c:set>
 
@@ -16,6 +16,7 @@
 .ui-datepicker-title{color:white}
 .ui-datepicker select.ui-datepicker-month{ width:30%; font-size: 11px; }
 .ui-datepicker select.ui-datepicker-year{ width:40%; font-size: 11px; }
+.hasDatepicker{cursor: pointer;}
 </style>
 <script>
 var room;
@@ -40,6 +41,12 @@ $(document).ready(function(){
 		$('.remaining_table tr').append('<th>객실명</th>');
 		$('.remaining_table tr').append('<th>날짜</th>');
 		$('.remaining_table tr').append('<th>남은객실</th></tr>');
+
+		if (room == "" || room == null || room == undefined || ( room != null && typeof room == "object" && !Object.keys(room).length)) {
+			alert_call(false,"죄송합니다.현재 객실이 남아있지 않습니다")
+		 	return false;
+		}
+		
 		if(room[0].roomType == "room1"){
 			type = "Standard";
 		}else if(room[0].roomType == "room2"){
@@ -64,12 +71,7 @@ $(document).ready(function(){
 		var days = staydate(); // 머무르는 기간
 		console.log("days : " + days);
 		console.log("curRoom : " + room);
-		// 객실 null 체크
-		if($('.roombox').val() == 0) {
-			console.log($('.roombox').val());
-			alert_call(false,"객실이 선택되지 않았습니다");
-			return false;
-		}
+
 		if(days == 0) days = 1;
 		var person = 0;
 		person = person_count();
@@ -80,14 +82,14 @@ $(document).ready(function(){
 				$('.stay_pay').text("금액: "+Math.ceil(person/2)*10*days+"만원");
 				$('.stay_pay').append("<br/><h4>결제하시겠습니까?</h4>");
 		}else if(room == 'Superior'){
-				if(person < 4) person = 4;
+				if(person < 4) 
 					$('.stay_person').text("숙박인원 : " +person+"인");
 					$('.stay_room').text("Superior (최대 4인) : " +Math.ceil(person/4)+"개");
 					$('.stay_date').text("숙박기간: " +days+"일");
 					$('.stay_pay').text("금액: " +Math.ceil(person/4)*19*days+"만원");
 					$('.stay_pay').append("<br/><h4>이대로 결제하시겠습니까?</h4>");
 		}else{
-				if(person < 8) person = 6;
+				if(person < 8) 
 					$('.stay_person').text("숙박인원 : " +person+"인");
 					$('.stay_room').text("Deluxe (최대8인) : " +Math.ceil(person/8)+"개");
 					$('.stay_date').text("숙박기간: " +days+"일");
@@ -96,18 +98,12 @@ $(document).ready(function(){
 		}
 	}
 	
-	//사람 수 체크 함수
+	//객실 인원 체크 함수
 	function person_count() {
 		var person = $('.person_select').text();
-		if(person == '성인 1인'){
-			return 1;
-		}else if(person == '성인 2인'){
-			return 2;
-		}else if(person == '성인 3인'){
-			return 3;
-		}else{
-			return person;
-		}
+		person = person.replace(/[^0-9]/g,"");
+		console.log(person);
+		return person;
 	}
 	// 예약 버튼
 	function roomsubmit(){
@@ -316,17 +312,14 @@ $(document).ready(function(){
 	
 	//객실예약
 	$(document).on('click','.room_submit',function(){
-		if($('.roombox').val() == 0) {
-			console.log($('.roombox').val());
-			alert_call(false,"객실이 선택되지 않았습니다");
-			return false;
-		}
 		$('.modal').fadeIn('slow');
 		calculator();
 	})
+	// 결제
 	$('.ok').click(function(){
 		roomsubmit();
 	})
+	// 취소
 	$('.no').click(function(){
 		$('.modal').fadeOut('slow');
 	})
@@ -387,7 +380,10 @@ $(document).ready(function(){
 		
 		//룸 선택 버튼 클릭 함수
 		$('.btn_box button').click(function(){
-// 			$(this).toggleClass('red');
+			$(".slider").toggle();
+			
+			$('.checkout_room').show();
+			$('.slider').show();
 			$(this).css({'background':'green'});
 			margin = 0;
 			$('.imgbox').stop().animate({'margin-left':margin+'%'},500);
@@ -403,7 +399,6 @@ $(document).ready(function(){
 			$('.slidebox').show();
 			$('.slider').show(); // 왜 제일 먼저 뜨는지?
 			$('.checkout_room').show(); // 왜 제일 먼저 뜨는지?
-			$(".slideToggle").toggle();
 	})
 		// 객실예약 클릭 시;; hide() show() 함수만 분리해서 리팩토링 필요
 		$('#room4').click(function(){
@@ -417,7 +412,7 @@ $(document).ready(function(){
 <body>
 <div class="main_div">
 	<div class="modal">
-		<div class="carcurlator">
+		<div class="calculator">
 			<h1>가격표</h1>
 				<p class="stay_person"></p>
 				<p class="stay_room"></p>
@@ -432,21 +427,26 @@ $(document).ready(function(){
 	<h3>X</h3>  
 	<table class="remaining_table">
 		<tr class="remaining_head">
-	
 		</tr>
 	</table>
 </div>
 <div class="roombox">
 <h1>객실 예약 </h1>
-
-  <p>체크인 </p><input type="text" name="checkin" id="checkin_date" readonly>
-  <p>체크아웃 </p><input type="text" name="checkout" id="checkout_date" readonly>
-  <p id="roomChoice">객실 예약</p>
-<!--   <div class="room_dropbox"> -->
-<!-- 	  <div class="room1">Standard</div> -->
-<!-- 	  <div class="room2">Superior</div> -->
-<!-- 	  <div class="room3">Deluxe</div> -->
-<!--   </div> -->
+  <p>체크인 </p>
+  	<input type="text" name="checkin" id="checkin_date" readonly>
+  	<img alt="" width="3.8%" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_AeLSFS_DfDvLyo3W6lVmtL70U9q3myGgcJyHTMVqWZeqGQk7">
+  <p>체크아웃 </p>
+  	<input type="text" name="checkout" id="checkout_date" readonly>
+  	<img alt="" width="3.8%" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_AeLSFS_DfDvLyo3W6lVmtL70U9q3myGgcJyHTMVqWZeqGQk7">
+  <p id="roomChoice">객실 둘러보기</p>
+  
+  <div class="room_select">Standard</div>
+  <div class="room_dropbox">
+	  <div class="room1">Standard</div>
+	  <div class="room2">Superior</div>
+	  <div class="room3">Deluxe</div>
+  </div>
+  
     <p>인원</p>
     <div class="toggle_person">
   		<input type="number" max="100" id="person_input" placeholder="최대 100명까지 가능합니다">인
@@ -483,8 +483,8 @@ $(document).ready(function(){
 </div>
 <div class="checkout_room">
 	<button class="remaining_btn">잔여객실</button>
-	<button class="room_submit"> 예약 </button>
 </div>
+
 </div>
 
 

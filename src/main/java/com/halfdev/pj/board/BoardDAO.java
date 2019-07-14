@@ -25,7 +25,8 @@ public class BoardDAO {
 	
 	//글 수정에서 파일 추가
 	public void addfiles(List<MultipartFile> mf,String folder) throws IllegalStateException, IOException {
-		String path=context.getRealPath("/WEB-INF/file/"+folder);
+		String path = context.getRealPath("/WEB-INF/file/"+folder);
+		System.out.println("path>>" + path);
 		String filename;
 		
 		for(int i=0;i<mf.size();i++) {

@@ -401,7 +401,7 @@ $(document).ready(function(){
 </head>
 <body>
 <div class="modal">
-<div class="carcurlator">
+<div class="calculator">
 <h1>가격표</h1>
 
 <p class="stay_person"></p>

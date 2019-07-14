@@ -170,6 +170,11 @@ function ConvertSystemSourcetoHtml(str){
  str = str.replace(/(?:\r\n|\r|\n)/g, '<br>');
  return str;
 }
+
+function refreshfunc(){
+	location.reload();
+}
+
 /* 고객센터 페이지 로드 함수*/
 function pageload(pagenum){
 	$.ajax({
@@ -178,7 +183,6 @@ function pageload(pagenum){
 		data:{'i':pagenum},
 		datatype:'json',
 		success:function(result){
-			alert(result);
 			tableload(result);
 		},
 		error:function(e){
@@ -199,7 +203,7 @@ function tableload(list){
 		}
 		$('#'+list[i].seq).append('<td class="seq">'+list[i].seq+'</td>');
 		if(list[i].security=="Y"){
-			$('#'+list[i].seq).append('<td class="title">'+list[i].title+'<img src="${path}/img/icon/padlock-16.jpg" style="margin-left:3"></td>');
+			$('#'+list[i].seq).append('<td class="title">'+list[i].title+'<img src="${path}/img/icon/lock.jpg" style="margin-left:3; width:17"></td>');
 		}else{
 			$('#'+list[i].seq).append('<td class="title">'+list[i].title+'</td>');
 		}
@@ -310,58 +314,59 @@ $(document).ready(function(){
 		update_file_list.push($(this).parent().prop('id'));
 	
 	})
-	/* 페이징 함수 */
+	/* 페이징 함수  페이지 바로 리로드 안됨 */
 	function paging(){
-		if(i>10){
+		if(i > 10){
 			$('.paging_span').append('<button class="prev">≪</button>');
-		}		
-		for(i;i<count/10+1&&i<=j;i++){
-			if(j-i==9){
+		}
+		
+		for(i; i < count/10 + 1 && i <= j; i++){
+			if(j-i == 9){
 				$('.paging_span').append('<button class="pagenum_active">'+i+'</button>');
 			}else{
 				$('.paging_span').append('<button class="pagenum">'+i+'</button>');
 			}
 		}
-		
-			if(i>j){
-				if(count>j*10)
+			if(i > j){
+				if(count > j * 10)
 				$('.paging_span').append('<button class="next">≫</button>');
-				j+=10;
+				j += 10;
 			}
-			
 	}
 	/*이전버튼 페이징*/
 	function prevpaging(){
-		if(i%10==1){
-			j-=20;
-			i-=20;
+		if(i % 10 == 1){
+			j -= 20;
+			i -= 20;
 		}else{
-			i-=i%10+9;
-			j-=10;
+			i -= i % 10 + 9;
+			j -= 10;
 		}
 	
-		if(i>10){
+		if(i > 10){
 			$('.paging_span').append('<button class="prev">≪</button>');
 		}
-		for(i;i<count/10+1&&i<=j;i++){
-			if(j-i==9){
+		for(i; i < count / 10 + 1 && i <= j; i++){
+			if(j - i == 9){
 				$('.paging_span').append('<button class="pagenum_active">'+i+'</button>');
 			}else{
 				$('.paging_span').append('<button class="pagenum">'+i+'</button>');
 			}
-			}
-		
-			if(i>j){
-				if(count>j*10)
+		}
+			if(i > j){
+				if(count > j * 10)
 				$('.paging_span').append('<button class="next">≫</button>');
-				j+=10;
+				j += 10;
 			}
-			
 	}
 	/* 페이징 호출 */
-	if(count<10){
+	if(count <= 10){
+		alert(count);
 		$('.paging_span').append("<button>1</button>");
-	}else if(count>j){	
+// 		refreshfunc();
+	}else if(count > j){
+		alert(count);
+		alert("j: "+j)
 		paging();
 	}
 	/* 고객센터 페이지 로드 함수 호출*/
@@ -371,7 +376,7 @@ $(document).ready(function(){
 	$(document).on('click','.pagenum',function(){
 		$('.pagenum_active').attr('class','pagenum');
 		$(this).attr('class','pagenum_active');
-		var pagenum=$(this).text();
+		var pagenum = $(this).text();
 		pageload(pagenum);
 	})
 	/*이전 버튼 기능*/
@@ -436,9 +441,9 @@ $(document).ready(function(){
 	/* 선택한 글 출력 */
 	$(document).on('click','.board_list',function(){
 		$('.tag').css({'margin-left':'30%'});
-		curpagenum=$('.pagenum_active').text();
+		curpagenum = $('.pagenum_active').text();
 		$('.board_btn_div').hide();
-		curseq=$(this).children('.seq').text();
+		curseq = $(this).children('.seq').text();
 		readformcall();
 	})
 	/*잠긴 글 작성자 확인 후 출력*/
@@ -451,7 +456,7 @@ $(document).ready(function(){
 			success:function(result){
 				if(result){
 					$('.tag').css({'margin-left':'30%'});
-					curpagenum=$('.pagenum_active').text();
+					curpagenum = $('.pagenum_active').text();
 					$('.board_btn_div').hide();
 					readformcall();
 				}else{
@@ -472,8 +477,7 @@ $(document).ready(function(){
 			}
 			writeform(false);
 		}else{
-			alert("로그인 후 이용할 수 있습니다");
-			location.href = 'login';	
+			window.location.href = 'login';
 		}
 		
 	})
@@ -619,7 +623,7 @@ $(document).ready(function(){
 				}
 			},
 			error:function(e){
-				alert("글수정 도중 문제가 발생했습니다!");
+				alert("글 수정 도중 문제가 발생했습니다!");
 			}
 		})
 		}
@@ -682,7 +686,7 @@ $(document).ready(function(){
 					  sum+=this.files[i].size;
 					  console.log(sum);
 					  if(sum>10485760){
-						  alert_call(false,'파일업로드 제한은 10메가입니다!');   
+						  alert_call(false,'파일업로드 제한은 10MB입니다!');   
 						    $(this).val("");
 					  }
 				  }
@@ -698,8 +702,8 @@ $(document).ready(function(){
 		
 		</div>
 		<div class="board_btn_div">
-		<span class="paging_span"></span>
-		<button class="board_write_btn">글쓰기</button>
+			<span class="paging_span"></span>
+			<button class="board_write_btn">글쓰기</button>
 		</div>
 			<div class="board_info" >
 			<h1 style="margin-bottom:0">전화 문의</h1>

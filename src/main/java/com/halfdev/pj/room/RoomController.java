@@ -80,6 +80,7 @@ public class RoomController {
 		}
 		return "ok";
 	}
+	
 	//매일 정각에 실행 (객실 테이블 인덱스 관리)
 	@Scheduled(cron="0 0 0 * * ?")
 	@Transactional
@@ -111,8 +112,8 @@ public class RoomController {
 	
 	@RequestMapping(value = "/remainingrooms", method = RequestMethod.POST)
 	public @ResponseBody List<RoomVO> remainingrooms(HttpServletRequest req){
-		List<RoomVO> list=new ArrayList<RoomVO>();
-		list=roomDao.remainingrooms(req.getParameter("room"));
+		List<RoomVO> list = new ArrayList<RoomVO>();
+		list = roomDao.remainingrooms(req.getParameter("room"));
 		return list;
 	}
 	
