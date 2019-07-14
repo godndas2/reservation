@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -30,7 +29,6 @@ public class BoardController {
 	public String boardList(Model model) {
 		model.addAttribute("list",boardDao.boardList(0));
 		model.addAttribute("count",boardDao.boardCount());
-		// 레코드 개수
 		return "board";
 	}
 	

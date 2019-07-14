@@ -188,7 +188,7 @@ function pageload(pagenum){
 /* 게시판 붙여넣는 함수*/
 function tableload(list){
 	$('.board_content').text("");
-	
+	$('.board_content').append('<span class="commentSpan">총 게시글  :'+ ${count}+'</span>');
 	$('.board_content').append('<table class="board_table"><tr class="thead"><th class="th_seq">번호</th><th class="th_title">제목</th><th class="th_writer">작성자</th><th class="th_date">날짜</th><th class="th_cnt">조회수</th></tr></table>');
 	for(var i = 0; i < Object.keys(list).length; i++) {
 		if(list[i].security=="Y"){
@@ -198,7 +198,7 @@ function tableload(list){
 		}
 			$('#'+list[i].seq).append('<td class="seq">'+list[i].seq+'</td>');
 		if(list[i].security=="Y"){
-			$('#'+list[i].seq).append('<td class="title">'+list[i].title+"["+list[i].commentCnt+"]"+'<img src="${path}/img/icon/lock.jpg" style="margin-left:3; width: 17px; position: fixed;"></td>');
+			$('#'+list[i].seq).append('<td class="title">'+list[i].title+"["+list[i].commentCnt+"]"+'<img src="${path}/img/icon/lock.jpg" style="margin-left:3; width: 17px; position: fixed;"></div></td>');
 		}else{
 			$('#'+list[i].seq).append('<td class="title">'+list[i].title+"["+list[i].commentCnt+"]"+'</td>');
 		}
