@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=utf-8" %>
+<%@page contentType="text/html; charset=utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="path" value="${pageContext.request.contextPath}"></c:set>
 <html>
@@ -25,9 +25,9 @@ function toggle_effect(id){
 function commentlist(list){
 	$('.comment_table').html("<tr class='comment_head'><td><a>Comments</a> <a style='font-weight:bold'>'"+Object.keys(list).length+"'</a></td></tr>");
 	var color="white";
-	for(var i=0;i<Object.keys(list).length;i++){
+	for(var i=0; i<Object.keys(list).length; i++){
 		$('.comment_table').append("<tr class='comment_content'id='comment_tr"+list[i].comment_seq+"'>");
-		$('#comment_tr'+list[i].comment_seq).append("<td class='"+list[i].comment_seq+"'><a class='comment_writer'>작성자:"+list[i].writer+"</a><a class='comment_reg_date'>날짜:"+list[i].reg_date+"</a> <img class='dat_update_icon' src='${path}/img/icon/edit-16.jpg'>  <img class='dat_delete_icon'src='${path}/img/icon/delete-16.jpg'> <br/><p>"+list[i].content+"</p>");
+		$('#comment_tr'+list[i].comment_seq).append("<td class='"+list[i].comment_seq+"'><a class='comment_writer'>작성자:"+list[i].writer+"</a><a class='comment_reg_date'>날짜:"+list[i].regDate+"</a> <img class='dat_update_icon' src='${path}/img/icon/replyedit.jpg'>  <img class='dat_delete_icon'src='${path}/img/icon/replydelete.jpg'> <br/><p>"+list[i].content+"</p>");
 		$('.'+list[i].comment_seq).append("</tr>");
 		if(list[i].modified=='Y'){
 			$('.'+list[i].comment_seq).children().eq(1).append('<a class="comment_modified">수정됨</a>');
@@ -61,7 +61,7 @@ function fileread(path){
 		data:{'path':path},
 		success:function(result){
 			for(var i=0;i<result.length;i++){
-				$('.read_content').parent().prepend('<img class="read_img"src="${path}/file/'+path+'/'+result[i]+'"><br/>');
+				$('.read_content').parent().prepend('<img class="read_img"src="${path}/userfile/'+path+'/'+result[i]+'"><br/>');
 			}
 			
 		}
@@ -80,7 +80,7 @@ function readformcall(){
 				data:{"seq":curseq},
 				datatype:'json',
 				success:function(result){
-					curdocument = result;
+					curdocument=result;
 					$('.read_title').append(result.title);
 					$('.read_info').append('<a>작성자 :'+result.writer+'</a>');
 					$('.read_info').append('<a>날짜 :'+result.regDate+'</a>');
@@ -126,7 +126,7 @@ function writeform(update){
 	
 				$('.board_insert_btn').attr('class','board_update_btn');
 				$('.input_title').val(curdocument.title);
-				$('.input_content').val(curdocument.content.replace(/<br>/g, "\n"));
+				$('.input_content').val(curdocument.content.replace(/(<br>|<br\/>|<br \/>)/g, '\r\n'));
 				$('.board_insert_form').append('<input type="hidden" id="input_seq" name="seq" value="'+curseq+'">');
 				setTimeout(function(){
 					if(cur_doc_path!=null){
@@ -140,7 +140,7 @@ function writeform(update){
 								$('.file_list').append("<h4>이전 파일 목록</h4>");
 								for(var i=0; i<result.length;i++){
 									$('.file_list').fadeIn();
-									$('.file_list').append('<img id="update_img"class="'+i+'"src="${path}/file/'+cur_doc_path+'/'+result[i]+'"><br/>');
+									$('.file_list').append('<img id="update_img"class="'+i+'"src="${path}/userfile/'+cur_doc_path+'/'+result[i]+'"><br/>');
 									$('.file_list').append('<p id="'+result[i]+'">'+result[i]+'<button class="'+i+'">X</button></p>');
 									
 								}
@@ -163,18 +163,13 @@ function writeform(update){
 }
 /* 특수문자 치환 */
 function ConvertSystemSourcetoHtml(str){
- str = str.replace(/</g,"&lt;");
- str = str.replace(/>/g,"&gt;");
- str = str.replace(/\"/g,"&quot;");
- str = str.replace(/\'/g,"&#39;");
- str = str.replace(/(?:\r\n|\r|\n)/g, '<br>');
+	 str = str.replace(/</g,"&lt;");
+	 str = str.replace(/>/g,"&gt;");
+	 str = str.replace(/\"/g,"&quot;");
+	 str = str.replace(/\'/g,"&#39;");
+	 str = str.replace(/(?:\r\n|\r|\n)/g, '<br>');
  return str;
 }
-
-function refreshfunc(){
-	location.reload();
-}
-
 /* 고객센터 페이지 로드 함수*/
 function pageload(pagenum){
 	$.ajax({
@@ -193,19 +188,19 @@ function pageload(pagenum){
 /* 게시판 붙여넣는 함수*/
 function tableload(list){
 	$('.board_content').text("");
+	
 	$('.board_content').append('<table class="board_table"><tr class="thead"><th class="th_seq">번호</th><th class="th_title">제목</th><th class="th_writer">작성자</th><th class="th_date">날짜</th><th class="th_cnt">조회수</th></tr></table>');
-	for(var i=0;i<Object.keys(list).length;i++)
-		{
+	for(var i = 0; i < Object.keys(list).length; i++) {
 		if(list[i].security=="Y"){
 			$('.board_table').append('<tr class="board_list_lock"id="'+list[i].seq+'">');
 		}else{
 			$('.board_table').append('<tr class="board_list"id="'+list[i].seq+'">');
 		}
-		$('#'+list[i].seq).append('<td class="seq">'+list[i].seq+'</td>');
+			$('#'+list[i].seq).append('<td class="seq">'+list[i].seq+'</td>');
 		if(list[i].security=="Y"){
-			$('#'+list[i].seq).append('<td class="title">'+list[i].title+'<img src="${path}/img/icon/lock.jpg" style="margin-left:3; width:17"></td>');
+			$('#'+list[i].seq).append('<td class="title">'+list[i].title+"["+list[i].commentCnt+"]"+'<img src="${path}/img/icon/lock.jpg" style="margin-left:3; width: 17px; position: fixed;"></td>');
 		}else{
-			$('#'+list[i].seq).append('<td class="title">'+list[i].title+'</td>');
+			$('#'+list[i].seq).append('<td class="title">'+list[i].title+"["+list[i].commentCnt+"]"+'</td>');
 		}
 		$('#'+list[i].seq).append('<td class="writer">'+list[i].writer+'</td>');
 		$('#'+list[i].seq).append('<td class="regDate">'+list[i].regDate+'</td>');
@@ -217,10 +212,9 @@ function tableload(list){
 }
 //댓글 수정취소 시 다시 로드
 function commentreload(lastdatseq,datbuffer){
-	if(lastdatseq>0){
+	if(lastdatseq > 0){
 		$('.'+lastdatseq).html(datbuffer);
 	}
-	
 }
 function commentdelete(seq){
 	$.ajax({
@@ -243,14 +237,13 @@ function commentdelete(seq){
 }
 $(document).ready(function(){
 	/* 페이징,테이블 기준변수  */
-	var count=${count}; //총 게시글 갯수
+	var count = ${count}; //총 게시글 갯수
 	var i=1; //게시글 행 1씩 증가
 	var j=10; //게시글 목록당 수 10씩 증가
 	var update_file_list = []; //글 수정 이전 파일리스트
 	var lastdatseq=0; //댓글 수정버튼 클릭한 댓글번호
 	var datbuffer=null; //수정취소 시 붙여넣을 내용 버퍼
 	var callback=false;
-	
 	/*mobile*/
 	if($('body').width()<450){
 		$('body').attr('class','mobile');
@@ -276,14 +269,14 @@ $(document).ready(function(){
 			data:{'seq':lastdatseq,'content':content,'id':sessionid},
 			success:function(result){
 				if(result){
-					// <img class='dat_update_icon' src='${path}/img/icon/edit-16.jpg'>  <img class='dat_delete_icon'src='${path}/img/icon/delete-16.jpg'>
-					$('.'+lastdatseq).html("<a class='comment_writer'>작성자:"+result.writer+"</a><a class='comment_reg_date'>날짜:"+result.reg_date+"</a>  <br/><p>"+result.content+"</p>");	
+					$('.'+lastdatseq).html("<a class='comment_writer'>작성자:"+result.writer+"</a><a class='comment_reg_date'>날짜:"+result.regDate+"</a> <img class='dat_update_icon' src='${path}/img/icon/replyedit.jpg'>  <img class='dat_delete_icon'src='${path}/img/icon/delete-16.jpg'> <br/><p>"+result.content+"</p>");	
 					$('.'+lastdatseq+' .comment_reg_date').append("<a class='comment_modified'>수정됨</a> ");
-					lastdatseq = 0;
-					datbuffer = null;
+					lastdatseq=0;
+					datbuffer=null;
 				}else{
 					alert_call(false,"권한이 없습니다.");
 				} 
+				
 			},
 			error:function(){
 				alert_call(false,"댓글 수정 중 문제가 발생했습니다.");
@@ -314,59 +307,58 @@ $(document).ready(function(){
 		update_file_list.push($(this).parent().prop('id'));
 	
 	})
-	/* 페이징 함수  페이지 바로 리로드 안됨 */
+	/* 페이징 함수 */
 	function paging(){
-		if(i > 10){
+		if(i>10){
 			$('.paging_span').append('<button class="prev">≪</button>');
-		}
-		
-		for(i; i < count/10 + 1 && i <= j; i++){
-			if(j-i == 9){
+		}		
+		for(i;i<count/10+1&&i<=j;i++){
+			if(j-i==9){
 				$('.paging_span').append('<button class="pagenum_active">'+i+'</button>');
 			}else{
 				$('.paging_span').append('<button class="pagenum">'+i+'</button>');
 			}
 		}
-			if(i > j){
-				if(count > j * 10)
+		
+			if(i>j){
+				if(count>j*10)
 				$('.paging_span').append('<button class="next">≫</button>');
-				j += 10;
+				j+=10;
 			}
+			
 	}
 	/*이전버튼 페이징*/
 	function prevpaging(){
-		if(i % 10 == 1){
-			j -= 20;
-			i -= 20;
+		if(i%10==1){
+			j-=20;
+			i-=20;
 		}else{
-			i -= i % 10 + 9;
-			j -= 10;
+			i-=i%10+9;
+			j-=10;
 		}
 	
-		if(i > 10){
+		if(i>10){
 			$('.paging_span').append('<button class="prev">≪</button>');
 		}
-		for(i; i < count / 10 + 1 && i <= j; i++){
-			if(j - i == 9){
+		for(i;i<count/10+1&&i<=j;i++){
+			if(j-i==9){
 				$('.paging_span').append('<button class="pagenum_active">'+i+'</button>');
 			}else{
 				$('.paging_span').append('<button class="pagenum">'+i+'</button>');
 			}
-		}
-			if(i > j){
-				if(count > j * 10)
-				$('.paging_span').append('<button class="next">≫</button>');
-				j += 10;
 			}
+		
+			if(i>j){
+				if(count>j*10)
+				$('.paging_span').append('<button class="next">≫</button>');
+				j+=10;
+			}
+			
 	}
 	/* 페이징 호출 */
-	if(count <= 10){
-		alert(count);
+	if(count<10){
 		$('.paging_span').append("<button>1</button>");
-// 		refreshfunc();
-	}else if(count > j){
-		alert(count);
-		alert("j: "+j)
+	}else if(count>j){	
 		paging();
 	}
 	/* 고객센터 페이지 로드 함수 호출*/
@@ -376,7 +368,7 @@ $(document).ready(function(){
 	$(document).on('click','.pagenum',function(){
 		$('.pagenum_active').attr('class','pagenum');
 		$(this).attr('class','pagenum_active');
-		var pagenum = $(this).text();
+		var pagenum=$(this).text();
 		pageload(pagenum);
 	})
 	/*이전 버튼 기능*/
@@ -427,7 +419,7 @@ $(document).ready(function(){
 		$('.header').css({'position':'relative'});
 	
 		$('.tag').css({'margin-left':'20%'});
-		if($('body').prop('class') == 'mobile'){
+		if($('body').prop('class')=='mobile'){
 			$('.board_info').show();
 			$('.board_info2').show();
 			$('.board_content').css({'position':'relative'});
@@ -441,9 +433,9 @@ $(document).ready(function(){
 	/* 선택한 글 출력 */
 	$(document).on('click','.board_list',function(){
 		$('.tag').css({'margin-left':'30%'});
-		curpagenum = $('.pagenum_active').text();
+		curpagenum=$('.pagenum_active').text();
 		$('.board_btn_div').hide();
-		curseq = $(this).children('.seq').text();
+		curseq=$(this).children('.seq').text();
 		readformcall();
 	})
 	/*잠긴 글 작성자 확인 후 출력*/
@@ -456,7 +448,7 @@ $(document).ready(function(){
 			success:function(result){
 				if(result){
 					$('.tag').css({'margin-left':'30%'});
-					curpagenum = $('.pagenum_active').text();
+					curpagenum=$('.pagenum_active').text();
 					$('.board_btn_div').hide();
 					readformcall();
 				}else{
@@ -468,21 +460,22 @@ $(document).ready(function(){
 	
 	/* 글쓰기 페이지 출력 */
 	$('.board_write_btn').click(function(){
-	
 		if(sessionid!=null){
 			if($('body').prop('class')=='mobile'){
 				$('.board_info').hide();
 				$('.board_info2').hide();
 		
 			}
+			
 			writeform(false);
 		}else{
-			window.location.href = 'login';
+			alert_call(false,"로그인 후 이용해주세요");
 		}
 		
 	})
 	/*선택글 수정 버튼*/
 	$(document).on('click','.update_btn',function(){
+		
 		$.ajax({
 			url:'/securitycheck',
 			type:'post',
@@ -502,8 +495,8 @@ $(document).ready(function(){
 			}
 			});
 	
-	})
-	/* 글등록 */
+		})
+		/* 글등록 */
 		$(document).on('click','.board_insert_btn',function(){	
 			if($('.input_title').val().length==0||$('.input_title').val()==""||$('.input_content').val().length==0||$('.input_content').val()==""){
 				alert_call(false,"제목이나 내용에 빈 값이 있습니다!");
@@ -542,37 +535,36 @@ $(document).ready(function(){
 			}
 		})
 		/*댓글 등록*/
-		$(document).on('click','.datgle_btn',function(){
-			if($('.datgle') == '') {
-				alert_call(false,"댓글을 작성해주세요");
-			}
-			if(sessionid != null){
-				var content = ConvertSystemSourcetoHtml($('.datgle').val());
+		$(document).on('click','.reply_btn',function(){
+			
+			if(sessionid!=null){
+				var content=ConvertSystemSourcetoHtml($('.reply').val());
 				var temp="";
 				
-				if($('body').prop('class') == 'mobile'){
-					if(content.length > 18){
-						for(var i = 0; i < content.length-17; i+=17){	
-							temp += content.substring(i,i+17)+'<br>';		
+				if($('body').prop('class')=='mobile'){
+					if(content.length>18){
+						for(var i=0;i<content.length-17;i+=17){	
+							temp+=content.substring(i,i+17)+'<br>';		
 						}
 						content=temp+content.substring(i,content.length);
 					}
 				}else{
-					if(content.length > 40){
-						for(var i = 0; i < content.length-39; i+=39){	
+					if(content.length>40){
+						for(var i=0;i<content.length-39;i+=39){	
 							temp+=content.substring(i,i+39)+'<br>';		
 						}
 						content=temp+content.substring(i,content.length);
 					}
 				}
 				
-				if(content.trim()!='' && content != null || content.length > 500){
+				if(content.trim()!=''&&content!=null||content.length>500){
 					$.ajax({
 						url:'/commentinsert',
 						type:'post',
 						data:{'content':content,'writer':sessionid,'seq':curseq},
 						success:function(result){
-							$('.datgle').val("");
+						
+							$('.reply').val("");
 							commentlist(result);
 							$('body').animate({scrollTop:lastcomment_top.top},1000);
 							toggle_effect(lastcomment);
@@ -582,21 +574,22 @@ $(document).ready(function(){
 					alert_call(false,"댓글 내용에 문제가있습니다!");
 				}
 			}else{
-				alert_call(false,"로그인 후 이용할 수 있습니다");
+				alert_call(false,"로그인 후 이용해주세요!");
 			}
 		})
-		
-		/* 글 수정 기능*/
-	$(document).on('click','.board_update_btn',function(){	
-		if($('.input_title').val().length==0||$('.input_title').val()==""||$('.input_content').val().length==0||$('.input_content').val()==""){
-			alert_call(false,"제목이나 내용에 빈 값이 있습니다!");
+	/* 글 수정 기능*/
+	$(document).on('click','.board_update_btn',function(){
+		if($('.input_title').val().length == 0 || $('.input_title').val() == "" || $('.input_content').val().length == 0 || $('.input_content').val() == ""){
+			alert_call(false,"제목과 내용을 작성해주세요");
 		}else{
-		var content=$('.input_content').val();
-		var title=$('.input_title').val();
+		var content = $('.input_content').val();
+		console.log(content);
+		var title = $('.input_title').val();
+		console.log(title);
 		$('.input_title').val(ConvertSystemSourcetoHtml(title));		
 		$('.input_content').val(ConvertSystemSourcetoHtml(content));
 		var form = new FormData(document.getElementById('board_insert_form'));
-		var file_seq=$('#input_seq').val();
+		var file_seq = $('#input_seq').val();
 		$.ajax({
 			url:'/boardupdate',
 			type:'post',
@@ -606,7 +599,7 @@ $(document).ready(function(){
 		    contentType: false,
 		    processData: false,
 			success:function(){
-				if(update_file_list.length>0){
+				if(update_file_list.length > 0){
 					$.ajax({
 						url:'fileupdate',
 						type:'post',
@@ -623,7 +616,7 @@ $(document).ready(function(){
 				}
 			},
 			error:function(e){
-				alert("글 수정 도중 문제가 발생했습니다!");
+				alert("수정 도중에 문제가 발생했습니다");
 			}
 		})
 		}
@@ -635,7 +628,7 @@ $(document).ready(function(){
 		   $(this).val($(this).val().substring(0, 2000));
 		 }
 	})
-	$(document).on('keyup','.datgle',function(){
+	$(document).on('keyup','.reply',function(){
 	  if($(this).val().length > 150) {
 		   $(this).val($(this).val().substring(0, 150));
 		 }
@@ -675,6 +668,7 @@ $(document).ready(function(){
 	$(document).on('change','#img_file',function(){
 	if(this.files.length>0){
 		 var sum=0
+	
 		 for(var i=0;i<this.files.length;i++){
 				fileName=this.files[i].name;
 				
@@ -686,7 +680,7 @@ $(document).ready(function(){
 					  sum+=this.files[i].size;
 					  console.log(sum);
 					  if(sum>10485760){
-						  alert_call(false,'파일업로드 제한은 10MB입니다!');   
+						  alert_call(false,'10MB까지만 업로드 가능합니다');   
 						    $(this).val("");
 					  }
 				  }
@@ -697,27 +691,26 @@ $(document).ready(function(){
 </script>
 <body>
 <h1 class="tag">고객센터</h1>
+	<div class="board_content">
 
-		<div class="board_content">
-		
-		</div>
-		<div class="board_btn_div">
-			<span class="paging_span"></span>
-			<button class="board_write_btn">글쓰기</button>
-		</div>
-			<div class="board_info" >
-			<h1 style="margin-bottom:0">전화 문의</h1>
+	</div>
+	<div class="board_btn_div">
+		<span class="paging_span"></span>
+		<button class="board_write_btn">글쓰기</button>
+	</div>
+	<div class="board_info" >
+		<h1 style="margin-bottom:0">전화 문의</h1>
 		<h1 style="color: tomato">. . . . . . . .</h1>
-			<h4>010-1234-****</h4>
-			<h4>평일 AM 9:00 ~ PM 6:00</h4>
-			<h4>공휴일 제외</h4>
-		</div>
-		<div class="board_info2" >
-			<h1 style="margin-bottom:0">게시판 문의</h1>
+		<h4>010-1234-****</h4>
+		<h4>평일 AM 9:00 ~ PM 6:00</h4>
+		<h4>공휴일 제외</h4>
+	</div>
+	<div class="board_info2" >
+		<h1 style="margin-bottom:0">게시판 문의</h1>
 		<h1 style="color: tomato">. . . . . . . .</h1>
-			<h4>24시간 연중무휴</h4>
-			<h4>최대한 빠른 시간내에 </h4>
-			<h4>답변 드리도록 노력하겠습니다.</h4>
-		</div>
+		<h4>24시간 연중무휴</h4>
+		<h4>최대한 빠른 시간내에 </h4>
+		<h4>답변 드리도록 노력하겠습니다.</h4>
+	</div>
 </body>
 </html>

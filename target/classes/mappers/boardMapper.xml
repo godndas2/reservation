@@ -9,13 +9,21 @@
 	 	  , WRITER
 	 	  , DATE_FORMAT(regDate, '%Y-%m-%d %H:%i') AS regDate
 	 	  , CNT
-	 	  , SECURITY 
+	 	  , SECURITY
+	 	  , (SELECT count(*) 
+			 FROM comment 
+			 WHERE comment.parent_seq = board.seq) AS commentCnt
 	 FROM BOARD 
 	 ORDER BY SEQ 
 	 DESC LIMIT #{i},10;
 </select>
 <select id='boardSelectRead' resultType="BoardVO">
-	 SELECT * 
+	 SELECT SEQ
+	 	  , TITLE
+	 	  , WRITER
+	 	  , DATE_FORMAT(regDate, '%Y-%m-%d %H:%i') AS regDate
+	 	  , CNT
+	 	  , SECURITY  
 	 FROM BOARD 
 	 WHERE seq = ${seq}
 </select>
@@ -49,8 +57,7 @@
 			  )
 </insert>
 <update id='boardUpdate' parameterType="BoardVO">
-	UPDATE 
-	BOARD 
+	UPDATE BOARD 
 	SET TITLE = #{title}
 	  , content = #{content}
 	WHERE SEQ = ${seq}

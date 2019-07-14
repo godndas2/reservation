@@ -13,7 +13,14 @@ public class BoardVO {
 	private String security;
 	private String filepath;
 	private int cnt;
+	private int commentCnt;
 	
+	public int getCommentCnt() {
+		return commentCnt;
+	}
+	public void setCommentCnt(int commentCnt) {
+		this.commentCnt = commentCnt;
+	}
 	public int getCnt() {
 		return cnt;
 	}
@@ -66,9 +73,8 @@ public class BoardVO {
 	@Override
 	public String toString() {
 		return "BoardVO [seq=" + seq + ", title=" + title + ", writer=" + writer + ", content=" + content + ", regDate="
-				+ regDate + ", security=" + security + ", filepath=" + filepath + ", cnt=" + cnt + "]";
+				+ regDate + ", security=" + security + ", filepath=" + filepath + ", cnt=" + cnt + ", commentCnt="
+				+ commentCnt + "]";
 	}
-	
-	
 	
 }

@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -30,10 +31,10 @@ public class CommentController {
 	}
 	
 	@RequestMapping(value="/commentlist",method=RequestMethod.POST)
-	public @ResponseBody List<CommentVO> commentlist(HttpServletRequest req) {
+	public @ResponseBody List<CommentVO> commentlist(HttpServletRequest req, Model model) {
 		commentVO.setParent_seq(req.getParameter("seq"));
 		List<CommentVO> list=commentDao.commentlist(commentVO);
-			
+		model.addAttribute("list" , list);
 		return list;
 	}
 	

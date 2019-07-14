@@ -284,7 +284,7 @@ th, td {
 	transition: 0.5s;
 }
 
-.datgle_div {
+.reply_div {
 	margin-top: 1%;
 	margin-left: 30%;
 	background: #FCFCFC;
@@ -298,7 +298,7 @@ th, td {
 	height: 15%;
 }
 
-.datgle_div a {
+.reply_div a {
 	margin-top: 0;
 	font-family: 'NanumSquareRound';
 	margin-left: 1%;
@@ -306,14 +306,14 @@ th, td {
 	font-size: 18px;
 }
 
-.datgle {
+.reply {
 	width: 80%;
 	margin-top: 10px;
 	margin-left: 3%;
 	height: 65%;
 }
 
-.datgle_btn {
+.reply_btn {
 	margin-top: 1vh;
 	position: absolute;
 	margin-left: 1vw;
@@ -322,7 +322,7 @@ th, td {
 	letter-spacing: 1px;
 }
 
-.datgle_btn:hover {
+.reply_btn:hover {
 	background: white;
 	color: salmon;
 	box-shadow: 1px 1px 7px grey;
@@ -365,21 +365,13 @@ th, td {
 	position: absolute;
 	margin-left:36%;	
 	cursor:pointer;
-}
-.dat_update_icon:hover{
-	
-	transform: rotate(-720deg);
-	transition:0.5s;
+	width: 29;
 }
 .dat_delete_icon{
-position: absolute;
+	position: absolute;
 	margin-left:37.2%;	
-cursor:pointer;
-}
-.dat_delete_icon:hover{
-
-	transform: rotate(-720deg);
-	transition:0.5s;
+	cursor:pointer;
+	width: 29;
 }
 .comment_writer{
 	position:absolute;
@@ -476,7 +468,7 @@ cursor:pointer;
 }
 
 @media ( max-width :1280px) {
-	.datgle_div {
+	.reply_div {
 		height: 20%;
 	}
 	.dat_update_icon{
@@ -569,14 +561,14 @@ cursor:pointer;
 		margin-top: 28%;
 		margin-left: 15%;
 	}
-	.datgle_div {
+	.reply_div {
 		margin-left: 12.5%;
 		width: 75%;
 	}
-	.datgle {
+	.reply {
 		height: 46%;
 	}
-	.datgle_btn {
+	.reply_btn {
 		padding: 7;
 		font-size: 12;
 	}
