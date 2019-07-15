@@ -65,7 +65,13 @@ body {
 	margin-left: 20vw;
 	font-size: 2vw;
 }
-
+.commentSpan{
+	position: absolute;
+    color: #1b3589;
+    margin-top: 5vh;
+    margin-left: 72vw;
+    font-size: 17px;
+}
 .board_content {
 	position: absolute;
 	width: 100vw;

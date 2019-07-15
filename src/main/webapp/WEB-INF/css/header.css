@@ -154,7 +154,7 @@ h1 {
 
 .alert h1 {
 	padding-top: 7vh;
-	font-size: 1.3vw;
+	font-size: 1.2vw;
 }
 
 
@@ -165,7 +165,7 @@ h1 {
 
 .alert_fail {
 	display: none;
-	color: red;
+	color: black;
 }
 
 .alert_close {

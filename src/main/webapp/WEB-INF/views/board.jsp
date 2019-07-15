@@ -452,7 +452,7 @@ $(document).ready(function(){
 					$('.board_btn_div').hide();
 					readformcall();
 				}else{
-					alert_call(false,"비밀글은 작성자와 관리자만 읽을 수 있습니다.");
+					alert_call(false,"비밀글은 작성자만 볼 수 있습니다");
 				}
 			}
 		})
@@ -501,7 +501,6 @@ $(document).ready(function(){
 			if($('.input_title').val().length==0||$('.input_title').val()==""||$('.input_content').val().length==0||$('.input_content').val()==""){
 				alert_call(false,"제목이나 내용에 빈 값이 있습니다!");
 			}else{
-				
 			
 			if($('.input_lock').is(":checked")){
 				$('.input_hidden').val("Y");
@@ -527,6 +526,7 @@ $(document).ready(function(){
 				$('.paging_span').children().first().attr('class','pagenum_active');
 				pageload('1');
 				tableload(result);
+				location.reload();
 			},
 			error:function(e){
 				alert("글쓰기 도중 문제가 발생했습니다!");
