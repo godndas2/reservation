@@ -25,6 +25,7 @@
 	 	  , CNT
 	 	  , SECURITY 
 	 	  , CONTENT 
+	 	  , FILEPATH 
 	 FROM BOARD 
 	 WHERE seq = ${seq}
 </select>

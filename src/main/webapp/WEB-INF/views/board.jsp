@@ -181,7 +181,7 @@ function pageload(pagenum){
 			tableload(result);
 		},
 		error:function(e){
-			alert("페이징 도중 문제가 발생했습니다!");
+			alert("홈페이지에 문제가 발생했습니다. 관리자 번호: 010-8xxx-8xxx");
 		}
 	})
 }

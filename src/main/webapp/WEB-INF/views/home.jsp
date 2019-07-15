@@ -382,11 +382,8 @@ $(document).ready(function(){
 		$('.btn_box button').click(function(){
 			$('.checkout_room').show();
 			$('.slider').show();
-			var clicked = true;
-			var color = clicked ? 'green' : '#2c4162';
-		    $(this).css('background-color', color);
-		    clicked = !clicked;
-			
+			$('.btn_box button').css({'background':'#2c4162'});
+			$(this).css({'background':'green'});
 		    margin = 0;
 			$('.imgbox').stop().animate({'margin-left':margin+'%'},500);
 			cur_room = $(this).prop('id');

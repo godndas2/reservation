@@ -1,16 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE configuration
-    PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
-    "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 
 <configuration>
-
 	<typeAliases>
 		<typeAlias alias="BoardVO" type="com.halfdev.pj.board.BoardVO" />
 		<typeAlias alias="MemberVO" type="com.halfdev.pj.member.MemberVO" />
 		<typeAlias alias="CommentVO" type="com.halfdev.pj.comment.CommentVO" />
 		<typeAlias alias="RoomVO" type="com.halfdev.pj.room.RoomVO" />
-		<!-- <typeAlias alias="BookVO" type="com.hotel.book.BookVO" /> -->
+		<typeAlias alias="BookVO" type="com.halfdev.pj.book.BookVO" />
 	</typeAliases>
-
 </configuration>

@@ -449,12 +449,11 @@ th, td {
 
 .file_list {
 	position: absolute;
-	width: 20%;
-	height: 50%;
-	background: white;
-	margin-left: 10%;
-	margin-top: 3%;
-	text-align: center;
+    width: 20%;
+    height: 50%;
+    margin-left: 6%;
+    margin-top: 8%;
+    text-align: center;
 }
 
 .file_list button {
