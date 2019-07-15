@@ -22,7 +22,7 @@ $( document ).ready(function() {
 <div class="read_btn_div"><button class="update_btn">수정</button><button class="delete_btn">삭제</button></div>
 <div class="reply_div">
 <a style="color:red;margin-left:3%">♥</a><a>댓글</a><br/>
-<textarea class="reply" rows="2" cols="20" wrap="hard" ></textarea><button class="reply_btn">등록</button>
+<textarea class="reply" rows="2" cols="20" wrap="hard" style="resize: none;"></textarea><button class="reply_btn">등록</button>
 </div>
 <div class="comment_div">
 	<table class="comment_table">

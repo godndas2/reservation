@@ -108,9 +108,11 @@ h1 {
 	width: 40;
 	z-index: 100;
 	display: inline-block;
-	position: absolute;
+	position: fixed;
 	margin-left: 97%;
 	margin-top: 2vh;
+	overflow-y: hidden; overflow-x: hidden;
+
 }
 
 .menu-toggle .one, .menu-toggle .two {

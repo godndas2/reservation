@@ -27,7 +27,7 @@ function commentlist(list){
 	var color="white";
 	for(var i=0; i<Object.keys(list).length; i++){
 		$('.comment_table').append("<tr class='comment_content'id='comment_tr"+list[i].comment_seq+"'>");
-		$('#comment_tr'+list[i].comment_seq).append("<td class='"+list[i].comment_seq+"'><a class='comment_writer'>작성자:"+list[i].writer+"</a><a class='comment_reg_date'>날짜:"+list[i].regDate+"</a> <img class='dat_update_icon' src='${path}/img/icon/replyedit.jpg'>  <img class='dat_delete_icon'src='${path}/img/icon/replydelete.jpg'> <br/><p>"+list[i].content+"</p>");
+		$('#comment_tr'+list[i].comment_seq).append("<td class='"+list[i].comment_seq+"'><a class='comment_writer'>작성자:"+list[i].writer+"</a><a class='comment_reg_date'>날짜:"+list[i].regDate+"</a> <img class='dat_update_icon' src='${path}/img/icon/edit.png'>  <img class='dat_delete_icon'src='${path}/img/icon/trash.png'> <br/><p>"+list[i].content+"</p>");
 		$('.'+list[i].comment_seq).append("</tr>");
 		if(list[i].modified=='Y'){
 			$('.'+list[i].comment_seq).children().eq(1).append('<a class="comment_modified">수정됨</a>');
@@ -198,7 +198,7 @@ function tableload(list){
 		}
 			$('#'+list[i].seq).append('<td class="seq">'+list[i].seq+'</td>');
 		if(list[i].security=="Y"){
-			$('#'+list[i].seq).append('<td class="title">'+list[i].title+"["+list[i].commentCnt+"]"+'<img src="${path}/img/icon/lock.jpg" style="margin-left:3; width: 17px; position: fixed;"></div></td>');
+			$('#'+list[i].seq).append('<td class="title">'+list[i].title+"["+list[i].commentCnt+"]"+'<img src="${path}/img/icon/padlock2.png" style="margin-left:3; width: 17px; position: fixed;"></div></td>');
 		}else{
 			$('#'+list[i].seq).append('<td class="title">'+list[i].title+"["+list[i].commentCnt+"]"+'</td>');
 		}
@@ -269,7 +269,7 @@ $(document).ready(function(){
 			data:{'seq':lastdatseq,'content':content,'id':sessionid},
 			success:function(result){
 				if(result){
-					$('.'+lastdatseq).html("<a class='comment_writer'>작성자:"+result.writer+"</a><a class='comment_reg_date'>날짜:"+result.regDate+"</a> <img class='dat_update_icon' src='${path}/img/icon/replyedit.jpg'>  <img class='dat_delete_icon'src='${path}/img/icon/delete-16.jpg'> <br/><p>"+result.content+"</p>");	
+					$('.'+lastdatseq).html("<a class='comment_writer'>작성자:"+result.writer+"</a><a class='comment_reg_date'>날짜:"+result.regDate+"</a> <img class='dat_update_icon' src='${path}/img/icon/edit.png'>  <img class='dat_delete_icon'src='${path}/img/icon/trash.png'> <br/><p>"+result.content+"</p>");	
 					$('.'+lastdatseq+' .comment_reg_date').append("<a class='comment_modified'>수정됨</a> ");
 					lastdatseq=0;
 					datbuffer=null;
@@ -499,7 +499,7 @@ $(document).ready(function(){
 		/* 글등록 */
 		$(document).on('click','.board_insert_btn',function(){	
 			if($('.input_title').val().length==0||$('.input_title').val()==""||$('.input_content').val().length==0||$('.input_content').val()==""){
-				alert_call(false,"제목이나 내용에 빈 값이 있습니다!");
+				alert_call(false,"제목과 내용을 작성해주세요");
 			}else{
 			
 			if($('.input_lock').is(":checked")){
@@ -508,8 +508,8 @@ $(document).ready(function(){
 				$('.input_hidden').val("N");
 			}
 			$('.input_writer').val(sessionid);
-			var content=$('.input_content').val();
-			var title=$('.input_title').val();
+			var content = $('.input_content').val();
+			var title = $('.input_title').val();
 			$('.input_title').val(ConvertSystemSourcetoHtml(title));
 			$('.input_content').val(ConvertSystemSourcetoHtml(content));
 			var form = new FormData(document.getElementById('board_insert_form'));
@@ -534,6 +534,7 @@ $(document).ready(function(){
 		})
 			}
 		})
+		
 		/*댓글 등록*/
 		$(document).on('click','.reply_btn',function(){
 			
@@ -698,19 +699,6 @@ $(document).ready(function(){
 		<span class="paging_span"></span>
 		<button class="board_write_btn">글쓰기</button>
 	</div>
-	<div class="board_info" >
-		<h1 style="margin-bottom:0">전화 문의</h1>
-		<h1 style="color: tomato">. . . . . . . .</h1>
-		<h4>010-1234-****</h4>
-		<h4>평일 AM 9:00 ~ PM 6:00</h4>
-		<h4>공휴일 제외</h4>
-	</div>
-	<div class="board_info2" >
-		<h1 style="margin-bottom:0">게시판 문의</h1>
-		<h1 style="color: tomato">. . . . . . . .</h1>
-		<h4>24시간 연중무휴</h4>
-		<h4>최대한 빠른 시간내에 </h4>
-		<h4>답변 드리도록 노력하겠습니다.</h4>
-	</div>
+
 </body>
 </html>

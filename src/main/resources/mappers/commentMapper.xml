@@ -29,8 +29,8 @@
 <update id="commentupdate">
 	UPDATE COMMENT 
 	SET CONTENT = #{content}
-				, reg_date=now()
-				, modified="Y" 
+				, regDate = now()
+				, modified = "Y" 
 	WHERE COMMENT_SEQ = ${comment_seq}
 </update>
 
