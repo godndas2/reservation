@@ -23,7 +23,8 @@
 	 	  , WRITER
 	 	  , DATE_FORMAT(regDate, '%Y-%m-%d %H:%i') AS regDate
 	 	  , CNT
-	 	  , SECURITY  
+	 	  , SECURITY 
+	 	  , CONTENT 
 	 FROM BOARD 
 	 WHERE seq = ${seq}
 </select>

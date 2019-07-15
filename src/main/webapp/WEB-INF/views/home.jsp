@@ -380,12 +380,14 @@ $(document).ready(function(){
 		
 		//룸 선택 버튼 클릭 함수
 		$('.btn_box button').click(function(){
-			$(".slider").toggle();
-			
 			$('.checkout_room').show();
 			$('.slider').show();
-			$(this).css({'background':'green'});
-			margin = 0;
+			var clicked = true;
+			var color = clicked ? 'green' : '#2c4162';
+		    $(this).css('background-color', color);
+		    clicked = !clicked;
+			
+		    margin = 0;
 			$('.imgbox').stop().animate({'margin-left':margin+'%'},500);
 			cur_room = $(this).prop('id');
 			curimgnum = 0;

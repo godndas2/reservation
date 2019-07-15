@@ -464,9 +464,7 @@ $(document).ready(function(){
 			if($('body').prop('class')=='mobile'){
 				$('.board_info').hide();
 				$('.board_info2').hide();
-		
 			}
-			
 			writeform(false);
 		}else{
 			alert_call(false,"로그인 후 이용해주세요");
@@ -572,10 +570,10 @@ $(document).ready(function(){
 						}
 					})
 				}else{
-					alert_call(false,"댓글 내용에 문제가있습니다!");
+					alert_call(false,"댓글 내용에 문제가있습니다");
 				}
 			}else{
-				alert_call(false,"로그인 후 이용해주세요!");
+				alert_call(false,"로그인 후 이용해주세요");
 			}
 		})
 	/* 글 수정 기능*/
@@ -584,13 +582,12 @@ $(document).ready(function(){
 			alert_call(false,"제목과 내용을 작성해주세요");
 		}else{
 		var content = $('.input_content').val();
-		console.log(content);
 		var title = $('.input_title').val();
-		console.log(title);
 		$('.input_title').val(ConvertSystemSourcetoHtml(title));		
 		$('.input_content').val(ConvertSystemSourcetoHtml(content));
 		var form = new FormData(document.getElementById('board_insert_form'));
 		var file_seq = $('#input_seq').val();
+		console.log("file_seq " + file_seq);
 		$.ajax({
 			url:'/boardupdate',
 			type:'post',
@@ -607,8 +604,10 @@ $(document).ready(function(){
 						data:{'list':update_file_list,'seq':file_seq},
 						 traditional : true,
 						success:function(result){
+							console.log(result);
 							if(result){readformcall()};
 						},error:function(e){
+							console.log(result);
 							alert(e);
 						}
 					})
@@ -648,14 +647,14 @@ $(document).ready(function(){
 						data:{'seq':curseq},
 						datatype:'json',
 						success:function(){
-							alert_call(true,"삭제완료!");
+							alert("삭제하시겠습니까?")
+							alert_call(true,"삭제가 완료되었습니다");
 							setTimeout(function(){
 								window.location.href="/board";
 							},1000)
-							
 						},
 						error:function(e){
-							alert("삭제 도중 문제가 발생했습니다!");
+							alert("삭제 도중 문제가 발생했습니다");
 						}
 					})
 				}else{
