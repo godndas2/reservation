@@ -1,0 +1,26 @@
+@charset "UTF-8";
+body{
+	background:whitesmoke;
+}
+.booking_div{
+	width:30%;
+	height:30%;
+	background:white;
+	box-shadow:1px 1px 5px grey;
+	margin-top: 10%;
+    position: absolute;
+    margin-left: 35%;
+    text-align:center;
+}
+.account{
+	color: royalblue;
+} 
+
+@media(max-width:450px){
+	.booking_div{
+	    width: 90%;
+    height: 40%;
+    margin-top: 35%;
+    margin-left: 5%;
+	}
+}

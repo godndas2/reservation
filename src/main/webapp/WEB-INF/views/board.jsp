@@ -109,7 +109,7 @@ function readformcall(){
 			});
 		},
 		error:function(e){
-			alert("글 읽기 폼 로드중 문제가 발생했습니다!");
+			alert("불편을 드려 죄송합니다. 관리자 번호 : 010-8xxx-8xxx");
 		}		
 	});
 }

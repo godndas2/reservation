@@ -66,6 +66,7 @@ public class RoomController {
 	    roomVO.setRoomDate(checkin);
 		//checkin 날짜에 해당하는 날의 객실 인덱스를 가져옴
 		int seq = roomDao.roomcheck(roomVO).getRoomSeq();
+		System.out.println("seq : " + seq);
 		//머무는 기간동안 남은 객실 수 체크
 		for(int i = 0; i < staydays; i++) {
 			if(seq + i <= max) {
@@ -122,25 +123,25 @@ public class RoomController {
 	@RequestMapping(value = "/room1", method = RequestMethod.POST)
 	public void room1() {
 
-//		  TimeZone tz = TimeZone.getTimeZone("Asia/Seoul");
-//	       Calendar calendar = Calendar.getInstance(tz);
-//	       calendar.set(2019, Calendar.FEBRUARY , 7);
-//	       String pattern = "yyyy-MM-dd";
-//	       SimpleDateFormat format = new SimpleDateFormat(pattern);
-//	       format.setTimeZone(tz);
-//	       System.out.println(format.format(calendar.getTime()));
-//	       
-//	   
-//		for(int i=1; i<4;i++) {
-//			roomVO.setRoomType("room"+i);
-//		    for(int j=0;j<31;j++) {
-//		    	   calendar.add(Calendar.DATE, j);
-//		    	   roomVO.setRoomDate(format.format(calendar.getTime()));
-//		    	   System.out.println(format.format(calendar.getTime()));
-//		    	   roomDao.roomset(roomVO);
-//		    	   calendar.set(2019, Calendar.FEBRUARY , 7);
-//		       }
-//		}
-//		
+		  TimeZone tz = TimeZone.getTimeZone("Asia/Seoul");
+	       Calendar calendar = Calendar.getInstance(tz);
+	       calendar.set(2019, Calendar.JULY , 16);
+	       String pattern = "yyyy-MM-dd";
+	       SimpleDateFormat format = new SimpleDateFormat(pattern);
+	       format.setTimeZone(tz);
+	       System.out.println(format.format(calendar.getTime()));
+	       
+	   
+		for(int i=1; i<4;i++) {
+			roomVO.setRoomType("room"+i);
+		    for(int j=0;j<31;j++) {
+		    	   calendar.add(Calendar.DATE, j);
+		    	   roomVO.setRoomDate(format.format(calendar.getTime()));
+		    	   System.out.println(format.format(calendar.getTime()));
+		    	   roomDao.roomset(roomVO);
+		    	   calendar.set(2019, Calendar.JULY , 16);
+		       }
+		}
+		
 	}
 }

@@ -20,7 +20,16 @@
 				  	 );
 	</insert>
 	<select id="mybookselect" parameterType="BookVO" resultType="BookVO">
-		SELECT * 
+		SELECT book_seq
+			 , book_type
+			 , book_person
+			 , DATE_FORMAT(book_date, '%Y-%m-%d %H:%i') AS book_date
+			 , book_pay
+			 , book_deposit
+			 , book_account
+			 , book_checkin
+			 , book_checkout
+			 , stay 
 		FROM BOOK 
 		WHERE BOOK_PERSON = #{id}
 	</select>

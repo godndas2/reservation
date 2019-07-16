@@ -71,6 +71,7 @@ $(document).ready(function(){
 			data:{'type':type,'checkin':checkin,'stay':stay,'pay':pay,'seq':seq},
 			success:function(result){
 				if(result){
+					alert("삭제하시겠습니까?")
 					alert_call(true,"삭제완료!");
 					setTimeout(function(){
 						location.reload();
@@ -78,13 +79,14 @@ $(document).ready(function(){
 				}
 			},
 			error:function(e){
-				alert_call("삭제 중 문제가 발생했습니다!");
+				alert_call("삭제 중 문제가 발생했습니다");
 				setTimeout(function(){
 					location.reload();
 				},1500);
 			}
 		})
 	})
+	
 	setTimeout(function(){
 		$.ajax({
 			url:'/mybookselect',
@@ -115,7 +117,7 @@ $(document).ready(function(){
 
 <body>
 <div class="mypage_div">
-<h4 class="mypage_head">Booking History</h4>
+<h4 class="mypage_head">예약내역</h4>
 <div class="book_div">
 <table class="book_table">
 

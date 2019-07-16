@@ -17,6 +17,7 @@ public class RoomDAO {
 		sqlSession.selectOne("room.roomset",rv);
 	}
 	public RoomVO roomcheck(RoomVO rv) {
+		System.out.println("test : " + rv.getRoomSeq());
 		return sqlSession.selectOne("room.roomcheck",rv);
 	}
 	public RoomVO stayroomcheck(RoomVO rv) {
