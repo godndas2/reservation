@@ -18,7 +18,7 @@
 	<resources mapping="/css/**" location="/WEB-INF/css/" />
 	<resources mapping="/file/**" location="/WEB-INF/file/"/>
 	<resources mapping="/img/**" location="/WEB-INF/img/"/>
-	<resources mapping="/userfile/**" location="/WEB-INF/userfile/"/>
+<!-- 	<resources mapping="/userfile/**" location="/WEB-INF/userfile/"/> -->
 	
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />

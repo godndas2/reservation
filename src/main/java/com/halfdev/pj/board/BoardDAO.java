@@ -75,10 +75,9 @@ public class BoardDAO {
 		
 	}
 	public List<String> fileread(String folder){
-		String path=context.getRealPath("/WEB-INF/file/"+folder);
-	
-		File dirFile=new File(path);
-		File[] fileList=dirFile.listFiles();
+		String path = context.getRealPath("/WEB-INF/file/"+folder);
+		File dirFile = new File(path);
+		File[] fileList = dirFile.listFiles();
 		List<String> list = new ArrayList<String>();
 		for(File tempFile : fileList) {
 			  if(tempFile.isFile()) {

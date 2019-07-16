@@ -61,7 +61,8 @@
 <update id='boardUpdate' parameterType="BoardVO">
 	UPDATE BOARD 
 	SET TITLE = #{title}
-	  , content = #{content}
+	  , CONTENT = #{content}
+	  , SECURITY = #{security}
 	WHERE SEQ = ${seq}
 </update>
 <delete id='boardDelete' parameterType="BoardVO">

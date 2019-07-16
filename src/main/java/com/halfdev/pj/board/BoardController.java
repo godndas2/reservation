@@ -87,14 +87,13 @@ public class BoardController {
 	@RequestMapping(value="/fileupdate", method = RequestMethod.POST)
 	public @ResponseBody boolean fileupdate(HttpServletRequest req){
 
-		String[] list=req.getParameterValues("list");
+		String[] list = req.getParameterValues("list");
 		boardVO.setSeq(Integer.parseInt(req.getParameter("seq")));
-		boardVO=boardDao.selectread(boardVO);
+		boardVO = boardDao.selectread(boardVO);
 
 		boardDao.updatefile(list,boardVO.getFilepath());
-
 		return true;
-}
+	}
 	@Transactional
 	@RequestMapping(value = "/securitycheck", method = RequestMethod.POST)
 	public  @ResponseBody boolean securitycheck(HttpServletRequest req) {
@@ -107,7 +106,7 @@ public class BoardController {
 		boardVO.setSeq(Integer.parseInt(seq));
 		boardVO.setWriter(id);
 
-		if(boardDao.securitycheck(boardVO)==null) {
+		if(boardDao.securitycheck(boardVO) == null) {
 			return false;
 		}else {
 			return true;
@@ -127,7 +126,8 @@ public class BoardController {
 		
 		
 		boardVO.setTitle(title);
-		boardVO.setContent(content);	
+		boardVO.setContent(content);
+		boardVO.setSecurity(req.getParameter("lock"));
 		boardDao.boardupdate(boardVO);
 		return "board";
 	}

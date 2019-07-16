@@ -60,8 +60,8 @@ function fileread(path){
 		type:'post',
 		data:{'path':path},
 		success:function(result){
-			for(var i=0;i<result.length;i++){
-				$('.read_content').parent().prepend('<img class="read_img"src="${path}/userfile/'+path+'/'+result[i]+'"><br/>');
+			for(var i=0;i<result.length;i++){ // userfile -> file
+				$('.read_content').parent().prepend('<img class="read_img"src="${path}/file/'+path+'/'+result[i]+'"><br/>');
 			}
 			
 		}
@@ -140,7 +140,7 @@ function writeform(update){
 								$('.file_list').append("<h4>이전 파일 목록</h4>");
 								for(var i=0; i<result.length;i++){
 									$('.file_list').fadeIn();
-									$('.file_list').append('<img id="update_img"class="'+i+'"src="${path}/userfile/'+cur_doc_path+'/'+result[i]+'"><br/>');
+									$('.file_list').append('<img id="update_img"class="'+i+'"src="${path}/file/'+cur_doc_path+'/'+result[i]+'"><br/>');
 									$('.file_list').append('<p id="'+result[i]+'">'+result[i]+'<button class="'+i+'">X</button></p>');
 									
 								}
@@ -484,7 +484,6 @@ $(document).ready(function(){
 					{
 						$('.header').css({'position':'relative'});
 					}
-					
 					update_file_list=[];
 					writeform(true);
 				}else{
@@ -583,6 +582,11 @@ $(document).ready(function(){
 		}else{
 		var content = $('.input_content').val();
 		var title = $('.input_title').val();
+		if($('.input_lock').is(":checked")){
+			$('.input_hidden').val("Y");
+		}else{
+			$('.input_hidden').val("N");
+		}
 		$('.input_title').val(ConvertSystemSourcetoHtml(title));		
 		$('.input_content').val(ConvertSystemSourcetoHtml(content));
 		var form = new FormData(document.getElementById('board_insert_form'));
@@ -597,12 +601,13 @@ $(document).ready(function(){
 		    contentType: false,
 		    processData: false,
 			success:function(){
+				console.log("update_file_list.length : " + update_file_list.length);
 				if(update_file_list.length > 0){
 					$.ajax({
 						url:'fileupdate',
 						type:'post',
 						data:{'list':update_file_list,'seq':file_seq},
-						 traditional : true,
+						traditional : true,
 						success:function(result){
 							console.log(result);
 							if(result){readformcall()};
@@ -633,7 +638,7 @@ $(document).ready(function(){
 		   $(this).val($(this).val().substring(0, 150));
 		 }
 	})
-	/* 글 삭제*/
+	/* 글 삭제 */
 	$(document).on('click','.delete_btn',function(){
 		$.ajax({
 			url:'/securitycheck',
