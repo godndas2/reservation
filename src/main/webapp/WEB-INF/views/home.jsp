@@ -59,7 +59,10 @@ $(document).ready(function(){
 			$('.'+room[i].roomSeq).append('<td>'+(i+1)+'</td>');
 			$('.'+room[i].roomSeq).append('<td>'+type+'</td>');
 			$('.'+room[i].roomSeq).append('<td>'+room[i].roomDate+'</td>');
-			$('.'+room[i].roomSeq).append('<td>'+room[i].roomStay+'</td>');
+			$('.'+room[i].roomSeq).append('<td class="stayClass">'+room[i].roomStay+'</td>');
+			if (room[i].roomStay == 0) {
+				$('.stayClass').css({'color':'red'}).text("예약불가");
+			}
 			$('.remaining_table').append('</tr>');
 		}
 		$('.remaining_div').fadeIn('slow');
@@ -331,6 +334,7 @@ $(document).ready(function(){
 			type:'post',
 			data:{'room':cur_room},
 			success:function(result){
+				console.log(room);
 				checkout_room(result);
 			}
 		})
@@ -393,11 +397,13 @@ $(document).ready(function(){
 	})
 		// 객실예약 클릭 시
 		$('#roomChoice').click(function(){
+			
 			$('.btn_box').show();
 			$('.slide_btn').show();
 			$('.slidebox').show();
-			$('.slider').show(); // 왜 제일 먼저 뜨는지?
-			$('.checkout_room').show(); // 왜 제일 먼저 뜨는지?
+			$('.slider').show(); 
+			$('.checkout_room').show(); 
+		    
 	})
 		// 객실예약 클릭 시;; hide() show() 함수만 분리해서 리팩토링 필요
 		$('#room4').click(function(){

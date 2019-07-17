@@ -13,18 +13,20 @@ public class RoomDAO {
 	private SqlSession sqlSession;
 	
 	public void roomset(RoomVO rv) {
-		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>roomset");
+		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>roomsetting");
 		sqlSession.selectOne("room.roomset",rv);
 	}
 	public RoomVO roomcheck(RoomVO rv) {
-		System.out.println("test : " + rv.getRoomSeq());
+		System.out.println("roomSeq : " + rv.getRoomSeq());
+		System.out.println("RoomVO : " + rv);
 		return sqlSession.selectOne("room.roomcheck",rv);
 	}
 	public RoomVO stayroomcheck(RoomVO rv) {
 		return sqlSession.selectOne("room.stayroomcheck",rv);
 	}
-	public RoomVO roomupdate(RoomVO rv) {
-		return sqlSession.selectOne("room.roomupdate",rv);
+	public void roomupdate(RoomVO rv) {
+		System.out.println("roomUpdate run....");
+		sqlSession.selectOne("room.roomupdate",rv);
 	}
 	public List<RoomVO> remainingrooms(String room_type){
 		return sqlSession.selectList("room.remainingrooms",room_type);

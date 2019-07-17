@@ -27,8 +27,8 @@
 			 , book_pay
 			 , book_deposit
 			 , book_account
-			 , book_checkin
-			 , book_checkout
+			 , DATE_FORMAT(book_checkin, '%Y-%m-%d %H:%i') AS book_checkin
+			 , DATE_FORMAT(book_checkout, '%Y-%m-%d %H:%i') AS book_checkout
 			 , stay 
 		FROM BOOK 
 		WHERE BOOK_PERSON = #{id}

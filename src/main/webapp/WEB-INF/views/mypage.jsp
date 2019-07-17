@@ -29,11 +29,11 @@ $(document).ready(function(){
 			deposit="결제대기중";
 		}
 		if(result[i].book_type=="room1"){
-			roomtype="스텐다드";
+			roomtype="Standard";
 		}else if(result[i].book_type=="room2"){
-			roomtype="슈페리어";
+			roomtype="Superior";
 		}else{
-			roomtype="디럭스";
+			roomtype="Deluxe";
 		}
 			$('.book_table').append('<tr class="'+result[i].book_seq+'">');
 			$('.'+result[i].book_seq).append("<td >"+result[i].book_seq+"</td>");

@@ -30,36 +30,37 @@ public class BookController {
 	@Transactional
 	@RequestMapping(value="/bookinsert" ,method = RequestMethod.POST)
 	public String bookinsert(HttpServletRequest req) {
+		
 		bookVO.setBook_checkin(req.getParameter("checkin"));
 		bookVO.setBook_checkout(req.getParameter("checkout"));
 		bookVO.setBook_pay(req.getParameter("pay"));
 		bookVO.setBook_person(req.getParameter("person"));
 		bookVO.setBook_type(req.getParameter("room"));
 		bookVO.setStay(req.getParameter("stay"));
-		int stay=Integer.parseInt(req.getParameter("stay"));
-		int needrooms=Integer.parseInt(req.getParameter("needrooms"));
 		
-		int max=0;
+		int stay = Integer.parseInt(req.getParameter("stay"));
+		int needrooms = Integer.parseInt(req.getParameter("needrooms"));
+		
+		int max = 0;
 		if(bookVO.getBook_type().equals("room1")) {
-			 max=31;
+			 max = 31;
 		}else if(bookVO.getBook_type().equals("room2")) {
-			 max=62;
+			 max = 62;
 		}else {
-			max=93;
+			max = 93;
 		}
-		
 		
 		bookDAO.bookinsert(bookVO);	
 		
 		roomVO.setRoomDate(bookVO.getBook_checkin());
 		roomVO.setRoomType(bookVO.getBook_type());
-		roomVO=roomDAO.roomcheck(roomVO);
+		roomVO = roomDAO.roomcheck(roomVO);
 		
-		int seq=roomVO.getRoomSeq();
+		int seq = roomVO.getRoomSeq();
 		roomVO.setRoomStay(roomVO.getRoomStay()-needrooms);
 		
 		for(int i=0;i<stay;i++) {
-			if(seq+i<=max) {
+			if(seq+i <= max) {
 				roomVO.setRoomSeq(seq+i);
 			}else {
 				roomVO.setRoomSeq(seq+i-31);
@@ -81,44 +82,48 @@ public class BookController {
 	public @ResponseBody boolean mybookdelete(HttpServletRequest req) {
 		int rooms;
 		int max;
-		String type=req.getParameter("type");
-		String checkin=req.getParameter("checkin");
-		int pay=Integer.parseInt(req.getParameter("pay"));
-		int stay=Integer.parseInt(req.getParameter("stay"));
-		pay=pay/stay;
-		
+		String type = req.getParameter("type");
+		String checkin = req.getParameter("checkin");
+		int pay = Integer.parseInt(req.getParameter("pay"));
+		int stay = Integer.parseInt(req.getParameter("stay"));
+		pay = pay/stay;
+		System.out.println("pay : " + pay);
 		if(type.equals("room1")) {
-			rooms=pay/10;
+			rooms = pay/10;
 		}else if(type.equals("room2")) {
-			rooms=pay/19;
+			rooms = pay/19;
 		}else {
-			rooms=pay/36;
+			rooms = pay/36;
 		}
 		roomVO.setRoomType(type);
+		System.out.println("type : " + type);
 		roomVO.setRoomDate(checkin);
+		System.out.println("checkin : " + checkin);
 		
-		roomVO=roomDAO.roomcheck(roomVO);
+		roomVO = roomDAO.roomcheck(roomVO);
+		System.out.println("roomCheck : " + roomVO);
 		
-		int roomseq=roomVO.getRoomSeq();
+		// 아래 콘솔에 안찍히는 중
+		int roomseq = roomVO.getRoomSeq();
+		System.out.println("controller roomseq :" + roomseq);
 		
 		if(type.equals("room1")) {
-			 max=31;
+			 max = 31;
 		}else if(type.equals("room2")) {
-			 max=62;
+			 max = 62;
 		}else {
-			max=93;
+			max = 93;
 		}
 		
 		roomVO.setRoomStay(roomVO.getRoomStay()+rooms);
-		for(int i=0;i<stay;i++) {			
-			if(roomseq+i<=max) {
+		for(int i=0; i < stay; i++) {			
+			if(roomseq+i <= max) {
 				roomVO.setRoomSeq(roomseq+i);
 			}else {
 				roomVO.setRoomSeq(roomseq+i-31);
 			}
 			roomVO.setRoomSeq(roomseq+i);
 			roomDAO.roomupdate(roomVO);
-			
 		}
 		
 		bookDAO.mybookdelete(req.getParameter("seq"));

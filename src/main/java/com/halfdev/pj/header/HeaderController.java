@@ -16,10 +16,10 @@ public class HeaderController {
 	public String home() {
 		return "home";
 	}
-	@RequestMapping(value = "/info", method = RequestMethod.GET)
-	public String info() {
-		return "info";
-	}
+//	@RequestMapping(value = "/info", method = RequestMethod.GET)
+//	public String info() {
+//		return "info";
+//	}
 	@RequestMapping(value = "/booking", method = RequestMethod.GET)
 	public String booking() {
 		return "booking";

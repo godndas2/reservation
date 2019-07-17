@@ -113,8 +113,7 @@ function alert_call(result,text){
 	
 		<ul class="nav-menu">
 		<li><a href="/" data-text="메인화면">메인화면</a></li>
-		<li><a href="/info" data-text="이용안내">이용안내</a></li>
-<!-- 		<li><a href="/room" data-text="숙소찾기">숙소찾기</a></li> -->
+<!-- 		<li><a href="/info" data-text="이용안내">이용안내</a></li> -->
 		<li><a href="/board" data-text="고객센터">고객센터</a></li>
 		<li class="session_menu1"></li>
 		<li class="session_menu2"></li>
