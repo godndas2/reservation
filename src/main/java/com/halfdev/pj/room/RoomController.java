@@ -66,13 +66,9 @@ public class RoomController {
 	    roomVO.setRoomDate(checkin);
 		//checkin 날짜에 해당하는 날의 객실 인덱스를 가져옴
 		int seq = roomDao.roomcheck(roomVO).getRoomSeq();
-		System.out.println("seq : " + seq);
-		System.out.println("stay : " + roomVO.getRoomStay());
 		//머무는 기간동안 남은 객실 수 체크
+		System.out.println(roomVO.getRoomDate());
 		for(int i = 0; i < staydays; i++) {
-			if(seq == 0) {
-				break;
-			}
 			if(seq + i <= max) {
 				roomVO.setRoomSeq(seq + i);
 			}else {
@@ -121,7 +117,7 @@ public class RoomController {
 		return list;
 	}
 	
-	//룸 테이블 세팅 클래스 junit으로 세팅
+	//룸 세팅 junit으로 세팅
 	@Transactional
 	@RequestMapping(value = "/room1", method = RequestMethod.POST)
 	public void room1() {

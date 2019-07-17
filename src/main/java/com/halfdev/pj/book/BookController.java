@@ -39,6 +39,7 @@ public class BookController {
 		bookVO.setStay(req.getParameter("stay"));
 		
 		int stay = Integer.parseInt(req.getParameter("stay"));
+		System.out.println("stay: " + stay);
 		int needrooms = Integer.parseInt(req.getParameter("needrooms"));
 		
 		int max = 0;
@@ -53,6 +54,7 @@ public class BookController {
 		bookDAO.bookinsert(bookVO);	
 		
 		roomVO.setRoomDate(bookVO.getBook_checkin());
+		System.out.println("book_checkin: " + bookVO.getBook_checkin());
 		roomVO.setRoomType(bookVO.getBook_type());
 		roomVO = roomDAO.roomcheck(roomVO);
 		
@@ -87,7 +89,6 @@ public class BookController {
 		int pay = Integer.parseInt(req.getParameter("pay"));
 		int stay = Integer.parseInt(req.getParameter("stay"));
 		pay = pay/stay;
-		System.out.println("pay : " + pay);
 		if(type.equals("room1")) {
 			rooms = pay/10;
 		}else if(type.equals("room2")) {
@@ -105,7 +106,6 @@ public class BookController {
 		
 		// 아래 콘솔에 안찍히는 중
 		int roomseq = roomVO.getRoomSeq();
-		System.out.println("controller roomseq :" + roomseq);
 		
 		if(type.equals("room1")) {
 			 max = 31;

@@ -134,14 +134,19 @@ $(document).ready(function(){
 			$.ajax({
 				url:'/roomcheck',
 				type:'post',
-				data:{'checkin':book_checkin,'stay':days,'roomType':room,'need_rooms':needrooms},
+				dataType: 'html',
+				data: {'checkin':book_checkin,'stay':days,'roomType':room,'need_rooms':needrooms},
 				success:function(result){
 					if(result == "ok"){
 						book_insert(room,days,book_checkin,person,needrooms);
 					}else{
 						alert_call(false,result+"일의 남은 방이 모자릅니다.");
 					}
-				}
+				},
+				error : function(request, status, error ) {   // 오류가 발생했을 때 호출된다.
+					alert("죄송합니다. 이미 예약이 완료 된 방입니다.");
+					console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+				},
 			})
 		}
 	}

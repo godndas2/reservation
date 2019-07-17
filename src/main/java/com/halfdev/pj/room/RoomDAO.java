@@ -17,15 +17,13 @@ public class RoomDAO {
 		sqlSession.selectOne("room.roomset",rv);
 	}
 	public RoomVO roomcheck(RoomVO rv) {
-		System.out.println("roomSeq : " + rv.getRoomSeq());
-		System.out.println("RoomVO : " + rv);
 		return sqlSession.selectOne("room.roomcheck",rv);
 	}
 	public RoomVO stayroomcheck(RoomVO rv) {
+		System.out.println("dao : " + rv);
 		return sqlSession.selectOne("room.stayroomcheck",rv);
 	}
 	public void roomupdate(RoomVO rv) {
-		System.out.println("roomUpdate run....");
 		sqlSession.selectOne("room.roomupdate",rv);
 	}
 	public List<RoomVO> remainingrooms(String room_type){
