@@ -10,16 +10,11 @@ public class HeaderController {
 	 @RequestMapping("**/favicon.ico")
 	    public String favicon() {
 	        return "forward:/resources/fav.ico";
-	    }
-
+	}
 	@RequestMapping(value="/",method=RequestMethod.GET)
 	public String home() {
 		return "home";
 	}
-//	@RequestMapping(value = "/info", method = RequestMethod.GET)
-//	public String info() {
-//		return "info";
-//	}
 	@RequestMapping(value = "/booking", method = RequestMethod.GET)
 	public String booking() {
 		return "booking";
@@ -27,9 +22,5 @@ public class HeaderController {
 	@RequestMapping(value = "/mypage", method = RequestMethod.GET)
 	public String mypage() {
 		return "mypage";
-	}
-	@RequestMapping(value = "/welcome", method = RequestMethod.GET)
-	public String welcomecall() {
-		return "welcome";
 	}
 }

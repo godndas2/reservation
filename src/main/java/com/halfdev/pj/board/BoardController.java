@@ -1,13 +1,12 @@
 package com.halfdev.pj.board;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -16,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.halfdev.pj.member.MemberVO;
 import com.mysql.jdbc.StringUtils;
 
 @Controller
@@ -143,6 +144,16 @@ public class BoardController {
 		boardDao.boarddelete(boardVO);
 		
 		return "board";
+	}
+	
+	@RequestMapping(value = "/chatting", method = RequestMethod.GET)
+	public ModelAndView chat(ModelAndView mv) {
+		mv.setViewName("/chat");
+		MemberVO member = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		System.out.println("ID : " + member.getId());
+		System.out.println("normal chat page");
+		mv.addObject("userid", member.getId());
+		return mv;
 	}
 	
 }
