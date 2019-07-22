@@ -51,5 +51,5 @@
 # 추가사항
 - social login ( kakao, naver )
 - Google api (or kakao map)를 활용한 사용자와 예약하고자하는 호텔의 위치 나타내주기
-- 고객센터의 상담사와 고객의 1대1 채팅 ( kakao plus API ) (o)
+- 고객센터의 상담사와 고객의 1대1 채팅 ( kakao plus API ) ( plus 친구 채팅하는 법 : http://pf.kakao.com/_ecZxfT)
 - aws ec2 hosting
