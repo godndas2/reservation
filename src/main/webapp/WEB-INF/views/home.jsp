@@ -420,6 +420,7 @@ $(document).ready(function(){
 </script>
 </head>
 <body>
+ ${sessionScope.token}
 <div class="main_div">
 	<div class="modal">
 		<div class="calculator">

@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -146,13 +147,24 @@ public class BoardController {
 		return "board";
 	}
 	
+//	@RequestMapping("/chat") 
+//		public String chatView() {
+//			return "chat/chat";
+//		}
+	
+	
 	@RequestMapping(value = "/chatting", method = RequestMethod.GET)
 	public ModelAndView chat(ModelAndView mv) {
-		mv.setViewName("/chat");
-		MemberVO member = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		System.out.println("ID : " + member.getId());
+		
+//		사용자 정보 출력(세션)
+//		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//		System.out.println("user name :" + user.getUsername());
+				
 		System.out.println("normal chat page");
-		mv.addObject("userid", member.getId());
+		
+		mv.setViewName("chat/chat");
+//		mv.addObject("userid", user.getUsername());
+		
 		return mv;
 	}
 	

@@ -8,6 +8,8 @@
 <link href="${path}/css/login.css?ver=4" rel="stylesheet">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js"></script>
+<script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
 </head>
 <script>
 $(document).ready(function(){
@@ -65,6 +67,80 @@ $(document).ready(function(){
 		})
 	})
 })
+
+$(document).ready(function(){
+			Kakao.init("c933f268ff0522075463024906de5641");
+			function getKakaotalkUserProfile(){
+				Kakao.API.request({
+					url: '/v1/user/me',
+					success: function(res) {
+						$("#kakao-profile").append(res.properties.nickname);
+						$("#kakao-profile").append($("<img/>",{"src":res.properties.profile_image,"alt":res.properties.nickname+"님의 프로필 사진"}));
+					},
+					fail: function(error) {
+						console.log(error);
+					}
+				});
+			}
+			function createKakaotalkLogin(){
+				$("#kakao-logged-group .kakao-logout-btn,#kakao-logged-group .kakao-login-btn").remove();
+				var loginBtn = $("<a/>",{"class":"kakao-login-btn","text":"카카오 로그인"});
+				loginBtn.click(function(){
+					Kakao.Auth.login({
+						persistAccessToken: true,
+						persistRefreshToken: true,
+						success: function(authObj) {
+							getKakaotalkUserProfile();
+							createKakaotalkLogout();
+						},
+						fail: function(err) {
+							console.log(err);
+						}
+					});
+				});
+				$("#kakao-logged-group").prepend(loginBtn)
+			}
+// 			function createKakaotalkLogin(){
+//			 Kakao.Auth.createLoginButton({
+//				   container: '#kakao-login-btn',
+//				   success: function(authObj) {
+//				     Kakao.API.request({
+//				       url: '/v1/user/me',
+//				       success: function(res) {
+//				             alert(JSON.stringify(res)); //<---- kakao.api.request 에서 불러온 결과값 json형태로 출력
+//				             alert(JSON.stringify(authObj)); //<----Kakao.Auth.createLoginButton에서 불러온 결과값 json형태로 출력
+//				             console.log(res.id);//<---- 콘솔 로그에 id 정보 출력(id는 res안에 있기 때문에  res.id 로 불러온다)
+//				             console.log(res.kaccount_email);//<---- 콘솔 로그에 email 정보 출력 (어딨는지 알겠죠?)
+//				             console.log(res.properties['nickname']);//<---- 콘솔 로그에 닉네임 출력(properties에 있는 nickname 접근 
+				         // res.properties.nickname으로도 접근 가능 )
+//				             console.log(authObj.access_token);//<---- 콘솔 로그에 토큰값 출력
+//				           }
+//				         })
+//				       },
+//				       fail: function(error) {
+//				         alert(JSON.stringify(error));
+//				       }
+//				     });
+//			}
+				//]]>
+			function createKakaotalkLogout(){
+				$("#kakao-logged-group .kakao-logout-btn,#kakao-logged-group .kakao-login-btn").remove();
+				var logoutBtn = $("<a/>",{"class":"kakao-logout-btn","text":"로그아웃"});
+				logoutBtn.click(function(){
+					Kakao.Auth.logout();
+					createKakaotalkLogin();
+					$("#kakao-profile").text("");
+				});
+				$("#kakao-logged-group").prepend(logoutBtn);
+			}
+			if(Kakao.Auth.getRefreshToken()!=undefined&&Kakao.Auth.getRefreshToken().replace(/ /gi,"")!=""){
+				createKakaotalkLogout();
+				getKakaotalkUserProfile();
+			}else{
+				createKakaotalkLogin();
+			}
+		});
+		
 </script>
 <body>
 <div class="title"><h1>로그인</h1></div>
@@ -108,8 +184,24 @@ $(document).ready(function(){
 	</form>
 		<button class="login_btn">로그인</button>
 		<button type="button" id="help_btn" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">아이디 찾기</button>
+		<!-- 네이버 로그인 창으로 이동 -->
+		<div id="naver_id_login" style="text-align:center">
+			<a href="${url}">
+				<img width="223" src="https://developers.naver.com/doc/review_201802/CK_bEFnWMeEBjXpQ5o8N_20180202_7aot50.png"/>
+			</a>
+			<div id="kakao-logged-group">
+				<a href="javascript:createKakaotalkLogin()">
+					<img src="../img/button/kakaologin.png" width="300">
+    			</a>
+			</div>
+			<div id="kakao-profile"></div>
+<!-- 				<img width="223" src="../img/button/kakaologin.png"/> -->
+
+
+		</div>
 	</div>
 </div>
-
+<a id="kakao-login-btn"></a>
+<a href="http://developers.kakao.com/logout"></a>
 </body>
 </html>
