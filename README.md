@@ -42,7 +42,7 @@
 
 
 # Issue
-- 
+- social login 
 
 # 개선사항
 - xss 방지 (o)
