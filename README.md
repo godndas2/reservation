@@ -39,7 +39,7 @@
 ---
 ![p9](https://user-images.githubusercontent.com/34512538/61430182-15424880-a964-11e9-9f81-a11a1d845c66.PNG)
 ---
-
+![map](https://user-images.githubusercontent.com/34512538/61711501-2a1d4280-ad8f-11e9-85a4-ef57b4404412.PNG)
 
 # Issue
 - social login 
