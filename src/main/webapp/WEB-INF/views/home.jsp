@@ -9,7 +9,9 @@
 <link href="${path}/css/room.css?ver=20" rel="stylesheet"> 
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />  
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>  
-<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>  
+<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ff4c8eff27aa460a54b55e70fafd1160&libraries=services"></script>  
+<!-- <script charset="UTF-8" class="daum_roughmap_loader_script" src="https://ssl.daumcdn.net/dmaps/map_js_init/roughmapLoader.js"></script> -->
 <style>
 .ui-datepicker{ font-size: 15px; width: 250px; background:white; }
 .ui-widget-header{background:deepskyblue;}
@@ -408,6 +410,7 @@ $(document).ready(function(){
 			$('.slidebox').show();
 			$('.slider').show(); 
 			$('.checkout_room').show(); 
+			$('#map').hide(); 
 		    
 	})
 		// 객실예약 클릭 시;; hide() show() 함수만 분리해서 리팩토링 필요
@@ -415,9 +418,47 @@ $(document).ready(function(){
 			$('.checkout_room').hide();
 			$('.slider').hide();
 	})
+		// kakao map API call
+		$('.kakaoMap').click(function(){
+			kakaoMap();
+			$('.btn_box').hide();
+			$('.slide_btn').hide();
+			$('.slidebox').hide();
+			$('.slider').hide(); 
+			$('.checkout_room').hide(); 
+			
+	})
 	
+	function kakaoMap(){
+			var markers = [
+			    {
+			        position: new kakao.maps.LatLng(37.4999072,127.0373932), 
+			        text: 'reservation'
+			    }
+			];
+			var staticMapContainer  = document.getElementById('map'), // 이미지 지도를 표시할 div  
+			    staticMapOption = { 
+			        center: new kakao.maps.LatLng(37.4999072,127.0373932), // 이미지 지도의 중심좌표
+			        level: 3, // 이미지 지도의 확대 레벨
+			        marker: markers // 이미지 지도에 표시할 마커 
+			    };    
+			// 이미지 지도를 생성합니다
+			var staticMap = new kakao.maps.StaticMap(staticMapContainer, staticMapOption);
+		}
+		
+// 	function kakaoMap(){
+// 			new daum.roughmap.Lander({
+// 				"timestamp" : "1563879976612",
+// 				"key" : "ugqx",
+// 				"mapWidth" : "640",
+// 				"mapHeight" : "360"
+// 			}).render();
+			
+// 		};
 });
+
 </script>
+
 </head>
 <body>
  ${sessionScope.token}
@@ -449,8 +490,11 @@ $(document).ready(function(){
   <p>체크아웃 </p>
   	<input type="text" name="checkout" id="checkout_date" readonly>
   	<img alt="" width="3.8%" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_AeLSFS_DfDvLyo3W6lVmtL70U9q3myGgcJyHTMVqWZeqGQk7">
-  <p id="roomChoice">객실 둘러보기</p>
-  
+  <div>
+  	<p id="roomChoice">객실 둘러보기</p>
+  	<p id="roomChoice" class="kakaoMap">찾아오시는 길</p>
+  </div>
+  <p>객실</p>
   <div class="room_select">Standard</div>
   <div class="room_dropbox">
 	  <div class="room1">Standard</div>
@@ -471,22 +515,22 @@ $(document).ready(function(){
 	</div>
   	 	 <button class="room_submit"> 확인 </button>
 </div>
-<div class="slideToggle">
-	<div class="btn_box">
-		<button class="room1_btn" id="room1">Standard</button>
-		<button class="room2_btn" id="room2">Superior</button>
-		<button class="room3_btn" id="room3">Deluxe</button>
-		<button class="room3_btn" id="room4">Convenience</button>
-	</div>
-	<div class="slide_btn">
-		<button class="slide_left">＜</button>
-		<button class="slide_right">＞</button>
-	</div>
-	<div class="slidebox">
-		<div class="blur_box_left"></div>
-		<div class="blur_box_right"></div>
-		<div class="imgbox"></div>
-	</div>
+	<div class="slideToggle">
+		<div class="btn_box">
+			<button class="room1_btn" id="room1">Standard</button>
+			<button class="room2_btn" id="room2">Superior</button>
+			<button class="room3_btn" id="room3">Deluxe</button>
+			<button class="room3_btn" id="room4">Convenience</button>
+		</div>
+		<div class="slide_btn">
+			<button class="slide_left">＜</button>
+			<button class="slide_right">＞</button>
+		</div>
+		<div class="slidebox">
+			<div class="blur_box_left"></div>
+			<div class="blur_box_right"></div>
+			<div class="imgbox"></div>
+		</div>
 </div>
 
 <div class="slider">
@@ -498,7 +542,8 @@ $(document).ready(function(){
 
 </div>
 
-
+<!-- <div id="daumRoughmapContainer1563879976612" class="root_daum_roughmap root_daum_roughmap_landing"></div> -->
+<div id="map" style="width: 605px;height: 512px;margin-left: 53%;bottom: -20%;"></div>
 
 </body>
 </html>

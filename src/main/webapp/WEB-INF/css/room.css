@@ -1,8 +1,16 @@
 @charset "UTF-8";
+
+/* #daumRoughmapContainer1563879976612 { */
+/* 	width: 605px; */
+/* 	height: 512px; */
+/* 	margin-left: 53%; */
+/* 	bottom: -20%; */
+/* } */
 body {
 	background-image: url("../img/mainbg.jpg");
 	background-size: cover;
 	background-repeat : no-repeat;
+	overflow: hidden;
 }
 #roomChoice:hover {
 	cursor: pointer;
@@ -15,18 +23,18 @@ body {
 
 .roombox {
 	position: absolute;
-	margin-left: 30;
-	margin-top: 10%;
-	display: inline-block;
-	width: 35%;
-	height: 70%;
-	background: white;
-	color: #00000094;
-/* 	border: 1px solid; */
-	z-index: 100;
-/* 	text-align: left; */
-	border-radius: 10px;
-	box-shadow: 1px 1px 5px grey;
+    margin-left: 30;
+    margin-top: 5%;
+    display: inline-block;
+    width: 35%;
+    height: 83%;
+    background: white;
+    color: #00000094;
+    /* border: 1px solid; */
+    z-index: 100;
+    /* text-align: left; */
+    border-radius: 10px;
+    box-shadow: 1px 1px 5px grey;
 }
 
 .roombox input {
