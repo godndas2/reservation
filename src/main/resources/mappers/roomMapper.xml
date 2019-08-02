@@ -10,8 +10,10 @@
 		   				   ) 
 		   			VALUES(
 		   					#{roomType}
-		   				  , #{roomDate})
+		   				  , #{roomDate}
+		   				  )
 	</insert>
+	
 	<select id="roomcheck" parameterType="RoomVO" resultType="RoomVO">
 		SELECT ROOMSEQ
 			 , ROOMTYPE
@@ -21,6 +23,7 @@
 		WHERE ROOMDATE = #{roomDate}
 		AND ROOMTYPE = #{roomType}
 	</select>
+	
 	<select id="stayroomcheck" parameterType="RoomVO" resultType="RoomVO">
 		SELECT ROOMSTAY 
 		FROM ROOM 

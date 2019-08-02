@@ -4,9 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletContext;
 
@@ -32,8 +30,9 @@ public class BoardDAO {
 		String filename;
 		
 		for(int i=0;i<mf.size();i++) {
-			filename=new String(mf.get(i).getOriginalFilename().getBytes("8859_1"),"utf-8");
-			filename=filename.replaceAll("#", "");
+//			filename = new String(mf.get(i).getOriginalFilename().getBytes("8859_1"),"utf-8");
+			filename = mf.get(i).getOriginalFilename();
+			filename = filename.replaceAll("#", "");
 			if(filename.length()==0)
 			{
 				filename=""+i;
@@ -43,13 +42,11 @@ public class BoardDAO {
 		}
 		
 	}
-	//글 작성 시 파일 업로드
-	public String uploadfiles(List<MultipartFile> mf,String id) throws IllegalStateException, IOException {
-	   
+	public String createFolder(String id) {
+		
 		String path=context.getRealPath("/WEB-INF/file/");
 		Date date=new Date();
 
-		String filename;
 		String path2=id+date.getTime();
 		//폴더생성
 		File parent=new File(path);
@@ -58,22 +55,26 @@ public class BoardDAO {
 			desti.mkdir();
 		
 		 }
-		 path=path+path2;
-	
-		//파일업로드
-		for(int i=0;i<mf.size();i++) {
-			filename=mf.get(i).getOriginalFilename();
-			filename=filename.replaceAll("#", "");
-			if(filename.length()==0)
-			{
-				filename=""+i;
-			}
-			mf.get(i).transferTo(new File(path+"/"+filename));
-		
-		}
 		return path2;
-		
 	}
+	public String uploadFiles(List<MultipartFile> mf, String id) throws IllegalStateException, IOException{
+		String path = context.getRealPath("/WEB-INF/file/");
+		String path2 = createFolder(id);
+		String filename;	
+		path=path+path2;	
+		//파일업로드
+			for(int i=0;i<mf.size();i++) {
+				filename=mf.get(i).getOriginalFilename();
+				filename=filename.replaceAll("#", "");
+				if(filename.length()==0)
+				{
+					filename=""+i;
+				}
+				mf.get(i).transferTo(new File(path+"/"+filename));
+			
+			}
+			return path2;
+		}
 	public List<String> fileread(String folder){
 		String path = context.getRealPath("/WEB-INF/file/"+folder);
 		File dirFile = new File(path);

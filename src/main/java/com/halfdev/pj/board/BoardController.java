@@ -6,8 +6,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -18,7 +16,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.halfdev.pj.member.MemberVO;
 import com.mysql.jdbc.StringUtils;
 
 @Controller
@@ -58,9 +55,9 @@ public class BoardController {
 		String id=req.getParameter("writer");
 	
 		if(mf.get(0).getSize()>0) {	
-			boardVO.setFilepath(boardDao.uploadfiles(mf,id));
+			boardVO.setFilepath(boardDao.uploadFiles(mf,id));
 		}else {
-			boardVO.setFilepath(null);
+			boardVO.setFilepath(boardDao.createFolder(id));
 		}
 
 		String title=req.getParameter("title");

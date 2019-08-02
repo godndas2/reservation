@@ -80,6 +80,7 @@ $(document).ready(function(){
 		if(days == 0) days = 1;
 		var person = 0;
 		person = person_count();
+		
 			if(room == 'Standard'){
 				$('.stay_person').text("숙박인원 : " +person+"인");
 				$('.stay_room').text("Standard Room : "+Math.ceil(person/2)+"개");
